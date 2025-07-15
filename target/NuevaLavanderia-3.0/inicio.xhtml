@@ -1,0 +1,388 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Inicio - Cliente | Lavandería Express</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .welcome-message {
+            font-size: 1.1em;
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2) !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            color: white !important;
+            padding: 8px 16px !important;
+            border-radius: 5px !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3) !important;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .dashboard-title {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .dashboard-subtitle {
+            color: #666;
+            font-size: 1.2em;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-icon {
+            font-size: 3em;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .service-title {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .service-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .service-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            border: none !important;
+            color: white !important;
+            padding: 12px 25px !important;
+            border-radius: 8px !important;
+            font-size: 1em !important;
+            transition: transform 0.2s ease !important;
+        }
+
+        .service-button:hover {
+            transform: translateY(-2px) !important;
+        }
+
+        .info-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .info-title {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .info-icon {
+            font-size: 1.5em;
+            color: #667eea;
+        }
+
+        .info-text {
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .ui-messages {
+            margin-bottom: 20px !important;
+        }
+
+        .ui-messages-info {
+            background: #e8f5e8 !important;
+            border: 1px solid #4caf50 !important;
+            color: #2e7d32 !important;
+            border-radius: 8px !important;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .user-menu {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .main-content {
+                padding: 20px 15px;
+            }
+            
+            .dashboard-title {
+                font-size: 2em;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="pi pi-shopping-cart"></i>
+                Lavandería Express
+            </div>
+            <div class="user-info">
+                <div class="user-menu">
+                    <span class="welcome-message">
+                        Bienvenido, #{loginBean.usuarioLogueado.nombre}
+                    </span>
+                    <p:commandButton value="Cerrar Sesión" 
+                                    action="#{loginBean.logout}"
+                                    icon="pi pi-sign-out"
+                                    styleClass="logout-btn" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="main-content">
+        <h:form id="clienteForm">
+            <!-- Mensajes -->
+            <p:messages id="messages" showDetail="false" closable="true" />
+            
+            <!-- Header del Dashboard -->
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">Panel de Cliente</h1>
+                <p class="dashboard-subtitle">Gestiona tus servicios de lavandería</p>
+            </div>
+
+            <!-- Grid de Servicios -->
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="pi pi-plus-circle"></i>
+                    </div>
+                    <h3 class="service-title">Nuevo Pedido</h3>
+                    <p class="service-description">
+                        Solicita un nuevo servicio de lavandería. Selecciona el tipo de servicio y programa la recolección.
+                    </p>
+                    <p:commandButton value="Crear Pedido" 
+                                    styleClass="service-button"
+                                    icon="pi pi-plus"
+                                    onclick="PF('nuevoPedidoDialog').show();" />
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="pi pi-list"></i>
+                    </div>
+                    <h3 class="service-title">Mis Pedidos</h3>
+                    <p class="service-description">
+                        Consulta el estado de tus pedidos actuales y revisa el historial de servicios anteriores.
+                    </p>
+                    <p:commandButton value="Ver Pedidos" 
+                                    styleClass="service-button"
+                                    icon="pi pi-eye"
+                                    onclick="PF('pedidosDialog').show();" />
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="pi pi-user"></i>
+                    </div>
+                    <h3 class="service-title">Mi Perfil</h3>
+                    <p class="service-description">
+                        Actualiza tu información personal, cambia tu contraseña y gestiona tus preferencias.
+                    </p>
+                    <p:commandButton value="Editar Perfil" 
+                                    styleClass="service-button"
+                                    icon="pi pi-user-edit"
+                                    onclick="PF('perfilDialog').show();" />
+                </div>
+            </div>
+
+            <!-- Información del Servicio -->
+            <div class="info-section">
+                <h2 class="info-title">Información del Servicio</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <i class="pi pi-clock info-icon"></i>
+                        <div class="info-text">
+                            <strong>Horario de Atención:</strong><br/>
+                            Lunes a Viernes: 8:00 AM - 8:00 PM<br/>
+                            Sábados: 8:00 AM - 6:00 PM
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <i class="pi pi-phone info-icon"></i>
+                        <div class="info-text">
+                            <strong>Contacto:</strong><br/>
+                            Teléfono: (01) 234-5678<br/>
+                            WhatsApp: 987-654-321
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <i class="pi pi-map-marker info-icon"></i>
+                        <div class="info-text">
+                            <strong>Ubicación:</strong><br/>
+                            Av. Principal 123<br/>
+                            Lima, Perú
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <i class="pi pi-star info-icon"></i>
+                        <div class="info-text">
+                            <strong>Servicios:</strong><br/>
+                            Lavado, Secado, Planchado<br/>
+                            Servicio Express disponible
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </div>
+
+    <!-- Dialogs (Modales) -->
+    <p:dialog header="Próximamente" widgetVar="nuevoPedidoDialog" modal="true" width="400">
+        <p:panel style="text-align: center; padding: 20px;">
+            <i class="pi pi-info-circle" style="font-size: 3em; color: #667eea; margin-bottom: 15px;"></i>
+            <p style="font-size: 1.1em; color: #555;">
+                La funcionalidad de crear pedidos estará disponible próximamente.
+            </p>
+            <p:commandButton value="Cerrar" onclick="PF('nuevoPedidoDialog').hide();" 
+                            style="margin-top: 15px;" />
+        </p:panel>
+    </p:dialog>
+
+    <p:dialog header="Próximamente" widgetVar="pedidosDialog" modal="true" width="400">
+        <p:panel style="text-align: center; padding: 20px;">
+            <i class="pi pi-info-circle" style="font-size: 3em; color: #667eea; margin-bottom: 15px;"></i>
+            <p style="font-size: 1.1em; color: #555;">
+                La gestión de pedidos estará disponible próximamente.
+            </p>
+            <p:commandButton value="Cerrar" onclick="PF('pedidosDialog').hide();" 
+                            style="margin-top: 15px;" />
+        </p:panel>
+    </p:dialog>
+
+    <p:dialog header="Próximamente" widgetVar="perfilDialog" modal="true" width="400">
+        <p:panel style="text-align: center; padding: 20px;">
+            <i class="pi pi-info-circle" style="font-size: 3em; color: #667eea; margin-bottom: 15px;"></i>
+            <p style="font-size: 1.1em; color: #555;">
+                La edición de perfil estará disponible próximamente.
+            </p>
+            <p:commandButton value="Cerrar" onclick="PF('perfilDialog').hide();" 
+                            style="margin-top: 15px;" />
+        </p:panel>
+    </p:dialog>
+</h:body>
+</html>

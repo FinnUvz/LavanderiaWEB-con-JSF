@@ -1,0 +1,242 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Iniciar Sesión - Sistema Lavandería</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 900px;
+            max-width: 90%;
+            min-height: 500px;
+            display: flex;
+        }
+
+        .login-left {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: white;
+            padding: 40px;
+        }
+
+        .login-left h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .login-left p {
+            font-size: 1.1em;
+            text-align: center;
+            opacity: 0.9;
+        }
+
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-container i {
+            font-size: 3em;
+            color: white;
+        }
+
+        .login-right {
+            flex: 1;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-title {
+            font-size: 2.2em;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 300;
+        }
+
+        .ui-inputfield {
+            width: 100% !important;
+            padding: 15px !important;
+            margin-bottom: 20px !important;
+            border: 2px solid #e1e1e1 !important;
+            border-radius: 8px !important;
+            font-size: 1em !important;
+            transition: border-color 0.3s ease !important;
+        }
+
+        .ui-inputfield:focus {
+            border-color: #667eea !important;
+            outline: none !important;
+        }
+
+        .ui-button {
+            width: 100% !important;
+            padding: 15px !important;
+            font-size: 1.1em !important;
+            border-radius: 8px !important;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            border: none !important;
+            margin-top: 20px !important;
+            transition: transform 0.2s ease !important;
+        }
+
+        .ui-button:hover {
+            transform: translateY(-2px) !important;
+        }
+
+        .ui-messages {
+            margin-bottom: 20px !important;
+        }
+
+        .ui-messages-error {
+            background: #ffeaea !important;
+            border: 1px solid #ff6b6b !important;
+            color: #d63031 !important;
+        }
+
+        .ui-messages-info {
+            background: #e8f5e8 !important;
+            border: 1px solid #4caf50 !important;
+            color: #2e7d32 !important;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e1e1e1;
+        }
+
+        .register-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        .field-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+                width: 95%;
+            }
+            
+            .login-left {
+                min-height: 200px;
+            }
+            
+            .login-right {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <div class="login-container">
+        <!-- Lado izquierdo - Imagen/Logo -->
+        <div class="login-left">
+            <div class="logo-container">
+                <i class="pi pi-shopping-cart"></i>
+            </div>
+            <h2>Lavandería Express</h2>
+            <p>Tu servicio de lavandería de confianza. Calidad y rapidez en cada prenda.</p>
+        </div>
+
+        <!-- Lado derecho - Formulario -->
+        <div class="login-right">
+            <h:form id="loginForm">
+                <h1 class="login-title">Iniciar Sesión</h1>
+                
+                <!-- Mensajes globales -->
+                <p:messages id="messages" showDetail="false" closable="true" />
+                
+                <!-- Campo Email -->
+                <div class="field-group">
+                    <label class="field-label" for="correo">Correo Electrónico</label>
+                    <p:inputText id="correo" 
+                                value="#{loginBean.correo}" 
+                                required="true"
+                                requiredMessage="El correo electrónico es obligatorio"
+                                placeholder="Ingrese su correo electrónico">
+                        <f:validateRegex pattern="^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$" />
+                    </p:inputText>
+                    <p:message for="correo" display="text" />
+                </div>
+                
+                <!-- Campo Contraseña -->
+                <div class="field-group">
+                    <label class="field-label" for="contrasena">Contraseña</label>
+                    <p:password id="contrasena" 
+                               value="#{loginBean.contrasena}" 
+                               required="true"
+                               requiredMessage="La contraseña es obligatoria"
+                               placeholder="Ingrese su contraseña"
+                               feedback="false"
+                               toggleMask="true" />
+                    <p:message for="contrasena" display="text" />
+                </div>
+                
+                <!-- Botón Ingresar -->
+                <p:commandButton value="Ingresar" 
+                                action="#{loginBean.login}"
+                                update="messages"
+                                icon="pi pi-sign-in"
+                                styleClass="ui-button-lg" />
+                
+                <!-- Enlace a registro -->
+                <div class="register-link">
+                    <p>¿No tienes cuenta? 
+                        <h:link outcome="/registro.xhtml?faces-redirect=true" value="Registrate aquí" />
+                    </p>
+                </div>
+            </h:form>
+        </div>
+    </div>
+</h:body>
+</html>

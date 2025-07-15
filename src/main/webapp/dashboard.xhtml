@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <title>JSF con PrimeFaces</title>
+</h:head>
+<h:body>
+    <h:form id="formulario">
+        <p:panel header="Formulario de saludo">
+            <p:inputText value="#{formularioBean.nombre}" placeholder="Ingresa tu nombre" />
+            <p:commandButton value="Enviar" action="#{formularioBean.enviar}" update="msg" />
+        </p:panel>
+        <p:outputLabel id="msg" value="#{formularioBean.mensaje}" style="display:block;margin-top:10px;" />
+    </h:form>
+</h:body>
+</html>
