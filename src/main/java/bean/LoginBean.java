@@ -6,7 +6,6 @@ import dto.UsuarioDTO;
 import enums.RolUsuario;
 import util.NavigationController;
 
-
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -70,6 +69,11 @@ public class LoginBean implements Serializable {
 
             // Autenticación exitosa
             this.usuarioLogueado = usuario;
+
+            // GUARDAR USUARIO EN SESIÓN
+            FacesContext.getCurrentInstance()
+                    .getExternalContext().getSessionMap()
+                    .put("usuario", usuarioLogueado);
             NavigationController.mostrarMensajeExito("¡Bienvenido " + usuario.getNombre() + "!");
 
             // Limpiar campos

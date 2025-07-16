@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Nuevo Pedido - Lavandería</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
+              rel="stylesheet"/>
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+
+        <style>
+            .card-header {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+            }
+
+            .service-info {
+                background-color: #f8f9fa;
+                border-radius: 8px;
+                padding: 15px;
+                margin-top: 10px;
+            }
+
+            .total-section {
+                background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+                color: white;
+                border-radius: 10px;
+                padding: 20px;
+                text-align: center;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+
+            .form-section {
+                background: white;
+                border-radius: 10px;
+                padding: 20px;
+                margin-bottom: 20px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            .section-title {
+                color: #495057;
+                font-weight: 600;
+                margin-bottom: 15px;
+                border-bottom: 2px solid #e9ecef;
+                padding-bottom: 5px;
+            }
+
+            .ui-selectonemenu {
+                width: 100% !important;
+            }
+
+            .ui-inputtext, .ui-selectonemenu {
+                border-radius: 8px !important;
+            }
+
+            .ui-button {
+                border-radius: 8px !important;
+            }
+
+            .method-card {
+                border: 2px solid #e9ecef;
+                border-radius: 10px;
+                padding: 15px;
+                margin-bottom: 10px;
+                transition: all 0.3s ease;
+            }
+
+            .method-card:hover {
+                border-color: #667eea;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            }
+
+            .method-card.selected {
+                border-color: #667eea;
+                background-color: #f8f9ff;
+            }
+
+            .navbar-custom {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            }
+
+            .navbar-custom .navbar-brand {
+                color: white !important;
+                font-weight: bold;
+            }
+
+            .navbar-custom .nav-link {
+                color: white !important;
+            }
+        </style>
+    </h:head>
+
+    <h:body>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-custom">
+            <div class="container">
+                <a class="navbar-brand" href="dashboard.xhtml">
+                    <i class="fas fa-tshirt me-2"></i>
+                    Lavandería WebApp
+                </a>
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link" href="dashboard.xhtml">
+                        <i class="fas fa-home me-1"></i>
+                        Dashboard
+                    </a>
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-user me-1"></i>
+                        #{loginBean.usuarioLogueado.nombre}
+                    </a>
+                    <a class="nav-link" href="login.xhtml">
+                        <i class="fas fa-sign-out-alt me-1"></i>
+                        Cerrar Sesión
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container mt-4">
+            <h:form id="nuevoPedidoForm">
+                <!-- Título principal -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h3 class="mb-0">
+                                    <i class="fas fa-plus-circle me-2"></i>
+                                    Nuevo Pedido
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mensajes -->
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <p:messages id="messages" showDetail="true" closable="true"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Columna izquierda -->
+                    <div class="col-md-8">
+                        <!-- Sección: Servicio -->
+                        <div class="form-section">
+                            <h5 class="section-title">
+                                <i class="fas fa-cog me-2"></i>
+                                Seleccionar Servicio
+                            </h5>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p:outputLabel for="servicio" value="Tipo de Servicio:" styleClass="fw-bold"/>
+                                    <p:selectOneMenu id="servicio" 
+                                                     value="#{nuevoPedidoBean.servicioSeleccionado}" 
+                                                     converter="omnifaces.SelectItemsConverter"
+                                                     styleClass="form-control mt-2">
+                                        <f:selectItem itemLabel="-- Seleccione un servicio --" itemValue="#{null}"/>
+                                        <f:selectItems value="#{nuevoPedidoBean.serviciosDisponibles}" 
+                                                       var="servicio" 
+                                                       itemValue="#{servicio}"
+                                                       itemLabel="#{servicio.nombreServicio}"/>
+                                        <p:ajax event="change" 
+                                                listener="#{nuevoPedidoBean.onServicioSeleccionado}" 
+                                                update="servicioInfo totalSection"/>
+                                    </p:selectOneMenu>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p:outputLabel for="cantidad" value="Cantidad:" styleClass="fw-bold"/>
+                                    <p:inputNumber id="cantidad" 
+                                                   value="#{nuevoPedidoBean.cantidad}" 
+                                                   minValue="1" 
+                                                   maxValue="100"
+                                                   styleClass="form-control mt-2">
+                                        <p:ajax event="change" 
+                                                listener="#{nuevoPedidoBean.onCantidadCambiada}" 
+                                                update="totalSection"/>
+                                    </p:inputNumber>
+                                </div>
+                            </div>
+
+                            <!-- Información del servicio seleccionado -->
+                            <h:panelGroup id="servicioInfo">
+                                <div class="service-info mt-3" 
+                                     rendered="#{nuevoPedidoBean.servicioSeleccionado != null}">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h6 class="text-primary">
+                                                <i class="fas fa-info-circle me-2"></i>
+                                                #{nuevoPedidoBean.servicioSeleccionado.nombreServicio}
+                                            </h6>
+                                            <p class="mb-0">#{nuevoPedidoBean.servicioSeleccionado.descripcion}</p>
+                                        </div>
+                                        <div class="col-md-4 text-end">
+                                            <h5 class="text-success mb-0">
+                                                S/. #{nuevoPedidoBean.servicioSeleccionado.precio}
+                                            </h5>
+                                            <small class="text-muted">por prenda</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </h:panelGroup>
+                        </div>
+
+                        <!-- Sección: Observaciones -->
+                        <div class="form-section">
+                            <h5 class="section-title">
+                                <i class="fas fa-comment me-2"></i>
+                                Observaciones
+                            </h5>
+
+                            <p:inputTextarea id="observaciones" 
+                                             value="#{nuevoPedidoBean.observaciones}" 
+                                             rows="3" 
+                                             cols="50" 
+                                             placeholder="Ejemplo: Ropa delicada, no usar suavizante, etc."
+                                             styleClass="form-control"/>
+                        </div>
+
+                        <!-- Sección: Método de Entrega -->
+                        <div class="form-section">
+                            <h5 class="section-title">
+                                <i class="fas fa-truck me-2"></i>
+                                Método de Entrega
+                            </h5>
+
+                            <p:selectOneRadio id="metodoEntrega" 
+                                              value="#{nuevoPedidoBean.metodoEntrega}" 
+                                              layout="custom">
+                                <f:selectItems value="#{nuevoPedidoBean.metodosEntrega}" 
+                                               var="metodo" 
+                                               itemValue="#{metodo}" 
+                                               itemLabel="#{metodo}"/>
+                            </p:selectOneRadio>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="method-card">
+                                        <p:radioButton id="opt1" for="metodoEntrega" itemIndex="0"/>
+                                        <p:outputLabel for="opt1" value="Recojo a domicilio" styleClass="ms-2 fw-bold"/>
+                                        <p class="text-muted mb-0 mt-1">
+                                            <i class="fas fa-home me-1"></i>
+                                            Recogemos en tu domicilio
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="method-card">
+                                        <p:radioButton id="opt2" for="metodoEntrega" itemIndex="1"/>
+                                        <p:outputLabel for="opt2" value="Llevar a la tienda" styleClass="ms-2 fw-bold"/>
+                                        <p class="text-muted mb-0 mt-1">
+                                            <i class="fas fa-store me-1"></i>
+                                            Llevas tu ropa a la tienda
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección: Fechas y Horas -->
+                        <div class="form-section">
+                            <h5 class="section-title">
+                                <i class="fas fa-calendar me-2"></i>
+                                Programación
+                            </h5>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="text-primary">
+                                        <i class="fas fa-calendar-check me-2"></i>
+                                        Fecha y Hora de Recojo
+                                    </h6>
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <p:outputLabel for="fechaRecojo" value="Fecha:" styleClass="fw-bold"/>
+                                            <p:calendar id="fechaRecojo" 
+                                                        value="#{nuevoPedidoBean.fechaRecojo}" 
+                                                        pattern="dd/MM/yyyy" 
+                                                        mindate="#{nuevoPedidoBean.fechaRecojo}"
+                                                        styleClass="form-control mt-1"/>
+                                        </div>
+                                        <div class="col-5">
+                                            <p:outputLabel for="horaRecojo" value="Hora:" styleClass="fw-bold"/>
+                                            <p:calendar id="horaRecojo" 
+                                                        value="#{nuevoPedidoBean.horaRecojo}" 
+                                                        pattern="HH:mm" 
+                                                        timeOnly="true"
+                                                        styleClass="form-control mt-1"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <h6 class="text-success">
+                                        <i class="fas fa-calendar-plus me-2"></i>
+                                        Fecha y Hora de Entrega
+                                    </h6>
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <p:outputLabel for="fechaEntrega" value="Fecha:" styleClass="fw-bold"/>
+
+                                            <p:calendar id="fechaEntrega" 
+                                                        value="#{nuevoPedidoBean.fechaEntrega}" 
+                                                        pattern="dd/MM/yyyy" 
+                                                        mindate="#{nuevoPedidoBean.fechaRecojo}" 
+                                                        styleClass="form-control mt-1"/>
+                                        </div>
+                                        <div class="col-5">
+                                            <p:outputLabel for="horaEntrega" value="Hora:" styleClass="fw-bold"/>
+                                            <p:calendar id="horaEntrega" 
+                                                        value="#{nuevoPedidoBean.horaEntrega}" 
+                                                        pattern="HH:mm" 
+                                                        timeOnly="true"
+                                                        styleClass="form-control mt-1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección: Método de Pago -->
+                        <div class="form-section">
+                            <h5 class="section-title">
+                                <i class="fas fa-credit-card me-2"></i>
+                                Método de Pago
+                            </h5>
+
+                            <p:selectOneMenu id="metodoPago"
+                                             value="#{nuevoPedidoBean.metodoPago}" 
+                                             styleClass="form-control">
+                                <f:selectItem itemLabel="-- Seleccione método de pago --" itemValue=""/>
+                                <f:selectItems value="#{nuevoPedidoBean.metodosPago}" var="pago" itemValue="#{pago}" itemLabel="#{pago}"/>
+                            </p:selectOneMenu>
+                        </div>
+
+                    </div> <!-- Fin columna izquierda -->
+
+                    <!-- Columna derecha: Total y acciones -->
+                    <div class="col-md-4">
+                        <h:panelGroup id="totalSection">
+                            <div class="total-section" rendered="#{nuevoPedidoBean.mostrarTotal}">
+                                <h4>Total a Pagar</h4>
+                                <h2>S/. #{nuevoPedidoBean.total}</h2>
+                            </div>
+                        </h:panelGroup>
+
+                        <div class="mt-3 d-grid gap-2">
+                            <p:commandButton value="Confirmar Pedido" 
+                                             action="#{nuevoPedidoBean.registrarPedido}" 
+                                             styleClass="btn btn-success"
+                                             update="@form"/>
+
+                            <p:commandButton value="Cancelar"
+                                             action="#{nuevoPedidoBean.cancelar}" 
+                                             immediate="true"
+                                             styleClass="btn btn-secondary"/>
+                        </div>
+                    </div>
+
+                </div> <!-- Fin fila principal -->
+
+            </h:form>
+        </div>
+
+    </h:body>
+</html>

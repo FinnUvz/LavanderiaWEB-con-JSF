@@ -1,0 +1,45 @@
+CREATE TABLE usuarios (
+    id_usuario SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    correo VARCHAR(100) UNIQUE NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+    direccion VARCHAR(200) NOT NULL,
+    contrasena VARCHAR(200) NOT NULL,
+    rol VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE servicio (
+    id_servicio SERIAL PRIMARY KEY,
+    nombre_servicio VARCHAR(100) NOT NULL,
+    descripcion VARCHAR(255),
+    precio DECIMAL(10, 2) NOT NULL,
+    activo BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE pedido (
+    id_pedido SERIAL PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    id_servicio INT NOT NULL,
+    fecha_pedido DATE NOT NULL DEFAULT CURRENT_DATE,
+    fecha_recojo DATE NOT NULL,
+    hora_recojo TIME NOT NULL,
+    fecha_entrega DATE NOT NULL,
+    hora_entrega TIME NOT NULL,
+    metodo_entrega VARCHAR(50) NOT NULL,
+    metodo_pago VARCHAR(50) NOT NULL,
+    observaciones VARCHAR(255),
+    estado VARCHAR(30) NOT NULL DEFAULT 'Pendiente',
+    total DECIMAL(10,2) NOT NULL,
+    cantidad INT NOT NULL,
+    
+    -- Relaciones
+    CONSTRAINT fk_pedido_usuario FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
+    CONSTRAINT fk_pedido_servicio FOREIGN KEY (id_servicio) REFERENCES servicio(id_servicio)
+);
+
+INSERT INTO servicio (nombre_servicio, descripcion, precio, activo) VALUES
+('Lavado Normal', 'Lavado estándar de ropa común', 10.00, true),
+('Lavado + Planchado', 'Lavado con servicio de planchado', 15.00, true),
+('Lavado en Seco', 'Lavado especial para prendas delicadas', 18.00, true),
+('Lavado de Prendas Especiales', 'Lavado para cobertores, ternos, etc.', 20.00, true);
+
