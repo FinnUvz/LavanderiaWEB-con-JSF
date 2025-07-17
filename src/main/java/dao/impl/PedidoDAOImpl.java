@@ -237,4 +237,51 @@ public class PedidoDAOImpl implements PedidoDAO {
         
         return pedido;
     }
+
+    @Override
+    public List<PedidoDTO> obtenerPedidosPorUsuarioYEstados(int idUsuario, List<String> estados) {
+        List<PedidoDTO> pedidos = new ArrayList<>();
+        
+        if (estados == null || estados.isEmpty()) {
+            return pedidos;
+        }
+        
+        // Crear placeholders para la consulta IN
+        StringBuilder placeholders = new StringBuilder();
+        for (int i = 0; i < estados.size(); i++) {
+            if (i > 0) placeholders.append(", ");
+            placeholders.append("?");
+        }
+        
+        String sql = "SELECT p.*, s.nombre_servicio, u.nombre as nombre_usuario " +
+                    "FROM pedido p " +
+                    "JOIN servicio s ON p.id_servicio = s.id_servicio " +
+                    "JOIN usuarios u ON p.id_usuario = u.id_usuario " +
+                    "WHERE p.id_usuario = ? AND p.estado IN (" + placeholders + ") " +
+                    "ORDER BY p.fecha_pedido DESC";
+        
+        try (Connection conn = PostgreSQLConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setInt(1, idUsuario);
+            
+            // Establecer los parámetros para los estados
+            for (int i = 0; i < estados.size(); i++) {
+                stmt.setString(i + 2, estados.get(i));
+            }
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    PedidoDTO pedido = mapearResultSetAPedido(rs);
+                    pedidos.add(pedido);
+                }
+            }
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            System.err.println("Error al obtener pedidos por usuario y estados: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        return pedidos;
+    }
 }

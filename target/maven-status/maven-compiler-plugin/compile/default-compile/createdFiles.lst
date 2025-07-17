@@ -15,5 +15,6 @@ util\PasswordUtils.class
 bean\RegistroBean.class
 dao\UsuarioDAO.class
 dao\impl\PedidoDAOImpl.class
+bean\MisPedidosBean.class
 dao\impl\UsuarioDAOImpl.class
 dto\ServicioDTO.class
