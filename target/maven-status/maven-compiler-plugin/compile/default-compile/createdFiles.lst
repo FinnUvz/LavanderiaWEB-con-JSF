@@ -4,6 +4,7 @@ bean\LoginBean.class
 dto\UsuarioDTO.class
 enums\RolUsuario.class
 bean\NuevoPedidoBean.class
+bean\GestionPedidosAdminBean.class
 dao\ServicioDAO.class
 com\mycompany\nuevalavanderia\JakartaRestConfiguration.class
 bean\FormularioBean.class

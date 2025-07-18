@@ -16,6 +16,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import static util.NavigationController.CLIENTE_INICIO;
+import static util.NavigationController.LOGIN_PAGE;
 
 @Named
 @ViewScoped
@@ -264,11 +266,15 @@ public class NuevoPedidoBean implements Serializable {
         this.horaEntrega = LocalTime.of(17, 0);
     }
     
-    /**
-     * Cancela el pedido y regresa al dashboard
-     */
+    public String irInicio() {
+        return CLIENTE_INICIO+"?faces-redirect=true";
+    }
     public String cancelar() {
-        return "dashboard?faces-redirect=true";
+        return CLIENTE_INICIO+"?faces-redirect=true";
+    }
+    public String cerrarSesion() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return LOGIN_PAGE+"?faces-redirect=true";
     }
     
     // Getters y Setters

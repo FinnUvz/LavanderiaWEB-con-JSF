@@ -4,6 +4,8 @@ import dto.PedidoDTO;
 import java.util.List;
 
 public interface PedidoDAO {
+
+    boolean eliminarPedido(int idPedido);
     
     boolean crearPedido(PedidoDTO pedido);
     

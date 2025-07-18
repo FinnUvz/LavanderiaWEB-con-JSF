@@ -4,280 +4,293 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-<h:head>
-    <title>Mis Pedidos - Lavandería</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
-    <style>
-        .navbar-brand {
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
-        .table-responsive {
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .section-title {
-            color: #495057;
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        .badge {
-            font-size: 0.9rem;
-            padding: 6px 12px;
-        }
-        .empty-state {
-            text-align: center;
-            padding: 40px;
-            color: #6c757d;
-        }
-        .empty-state i {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-        .card {
-            border: none;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .card-header {
-            background-color: #f8f9fa;
-            border-bottom: 1px solid #dee2e6;
-        }
-    </style>
-</h:head>
+    <h:head>
+        <title>Mis Pedidos - Lavandería</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+        <style>
 
-<h:body>
-    <f:view>
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <div class="container">
-                <h:link class="navbar-brand" outcome="dashboard">
-                    <i class="fas fa-tshirt"></i> Lavandería
-                </h:link>
-                
-                <div class="navbar-nav ms-auto">
-                    <span class="navbar-text me-3">
-                        <i class="fas fa-user"></i> 
-                        #{loginBean.usuarioLogueado.nombre}
-                    </span>
-                    
-                    <h:form styleClass="d-flex">
-                        <h:commandButton value="Dashboard" 
-                                        action="#{misPedidosBean.volverAlDashboard}" 
-                                        styleClass="btn btn-outline-light me-2">
-                            <i class="fas fa-home"></i>
-                        </h:commandButton>
-                        
-                        <h:commandButton value="Cerrar Sesión" 
-                                        action="#{misPedidosBean.cerrarSesion}" 
-                                        styleClass="btn btn-outline-light">
-                            <i class="fas fa-sign-out-alt"></i>
-                        </h:commandButton>
+            .table-responsive {
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            .section-title {
+                color: #495057;
+                border-bottom: 2px solid #007bff;
+                padding-bottom: 10px;
+                margin-bottom: 20px;
+            }
+            .badge {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+            .empty-state {
+                text-align: center;
+                padding: 40px;
+                color: #6c757d;
+            }
+            .empty-state i {
+                font-size: 3rem;
+                margin-bottom: 20px;
+            }
+            .card {
+                border: none;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .card-header {
+                background-color: #f8f9fa;
+                border-bottom: 1px solid #dee2e6;
+            }
+            .navbar-custom {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            }
+
+            .navbar-custom .navbar-brand {
+                color: white !important;
+                font-weight: bold;
+            }
+
+            .navbar-custom .nav-link {
+                color: white !important;
+            }
+        </style>
+    </h:head>
+
+    <h:body>
+        <f:view>
+
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-custom">
+                <div class="container">
+                    <h:form styleClass="d-flex w-100 justify-content-between align-items-center">
+                        <h:commandLink action="#{misPedidosBean.irInicio}" styleClass="navbar-brand text-white">
+                            <i class="fas fa-tshirt me-2"></i> Lavandería WebApp
+                        </h:commandLink>
+
+                        <div class="navbar-nav ms-auto align-items-center">
+                            <span class="nav-link text-white">
+                                <i class="fas fa-user me-1"></i> #{loginBean.usuarioLogueado.nombre}
+                            </span>
+
+                            <p:commandButton 
+                                value="Inicio"
+                                action="#{misPedidosBean.irInicio}"
+                                icon="pi pi-home"
+                                styleClass="btn me-2"
+                                style="background-color: #764ba2; color: white; border: none;"
+                                iconPos="left"/>
+
+
+                            <p:commandButton  
+                                value="Cerrar Sesión"
+                                action="#{misPedidosBean.cerrarSesion}"
+                                icon="pi pi-sign-out"
+                                styleClass="btn me-2"
+                                style="background-color: #764ba2; color: white; border: none;"
+                                iconPos="left"/>
+                        </div>
                     </h:form>
                 </div>
-            </div>
-        </nav>
-
-        <!-- Contenido Principal -->
-        <div class="container mt-4">
-            <!-- Título Principal -->
-            <div class="row">
-                <div class="col-12">
-                    <h1 class="text-center mb-4">
-                        <i class="fas fa-shopping-cart"></i> Mis Pedidos
-                    </h1>
+            </nav>
+            <!-- Contenido Principal -->
+            <div class="container mt-4">
+                <!-- Título Principal -->
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="text-center mb-4">
+                            <i class="fas fa-shopping-cart"></i> Mis Pedidos
+                        </h1>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Mensajes Globales -->
-            <div class="row mb-3">
-                <div class="col-12">
-                    <p:messages id="messages" showDetail="true" closable="true"/>
+                <!-- Mensajes Globales -->
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <p:messages id="messages" showDetail="true" closable="true"/>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Sección: Pedidos Activos -->
-            <div class="row mb-5">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="section-title mb-0">
-                                <i class="fas fa-clock"></i> Pedidos en Proceso
-                            </h2>
-                        </div>
-                        <div class="card-body">
-                            <h:form id="formPedidosActivos">
-                                <h:panelGroup rendered="#{empty misPedidosBean.pedidosActivos}">
-                                    <div class="empty-state">
-                                        <i class="fas fa-inbox"></i>
-                                        <h4>No tienes pedidos activos</h4>
-                                        <p>Cuando realices un pedido, aparecerá aquí.</p>
-                                    </div>
-                                </h:panelGroup>
+                <!-- Sección: Pedidos Activos -->
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="section-title mb-0">
+                                    <i class="fas fa-clock"></i> Pedidos en Proceso
+                                </h2>
+                            </div>
+                            <div class="card-body">
+                                <h:form id="formPedidosActivos">
+                                    <h:panelGroup rendered="#{empty misPedidosBean.pedidosActivos}">
+                                        <div class="empty-state">
+                                            <i class="fas fa-inbox"></i>
+                                            <h4>No tienes pedidos activos</h4>
+                                            <p>Cuando realices un pedido, aparecerá aquí.</p>
+                                        </div>
+                                    </h:panelGroup>
 
-                                <h:panelGroup rendered="#{not empty misPedidosBean.pedidosActivos}">
-                                    <div class="table-responsive">
-                                        <p:dataTable value="#{misPedidosBean.pedidosActivos}" 
-                                                    var="pedido" 
-                                                    styleClass="table table-striped table-hover"
-                                                    paginator="true" 
-                                                    rows="10"
-                                                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                    rowsPerPageTemplate="5,10,15">
-                                            
-                                            <p:column headerText="Servicio" sortBy="#{pedido.nombreServicio}">
-                                                <strong>#{pedido.nombreServicio}</strong>
-                                            </p:column>
-                                            
-                                            <p:column headerText="Cantidad" sortBy="#{pedido.cantidad}">
-                                                #{pedido.cantidad}
-                                            </p:column>
-                                            
-                                            <p:column headerText="Total" sortBy="#{pedido.total}">
-                                                <h:outputText value="#{pedido.total}">
-                                                    <f:convertNumber type="currency" currencySymbol="S/. "/>
-                                                </h:outputText>
-                                            </p:column>
-                                            
-                                            <p:column headerText="Estado" sortBy="#{pedido.estado}">
-                                                <span class="#{misPedidosBean.obtenerClaseBadge(pedido.estado)}">
-                                                    #{misPedidosBean.obtenerTextoBadge(pedido.estado)}
-                                                </span>
-                                            </p:column>
-                                            
-                                            <p:column headerText="Fecha Entrega" sortBy="#{pedido.fechaEntrega}">
-                                                <h:outputText value="#{pedido.fechaEntrega}">
-                                                    <f:convertDateTime type="localDate" pattern="dd/MM/yyyy"/>
-                                                </h:outputText>
-                                                <br/>
-                                                <small class="text-muted">
-                                                    <h:outputText value="#{pedido.horaEntrega}">
-                                                        <f:convertDateTime type="localTime" pattern="HH:mm"/>
+                                    <h:panelGroup rendered="#{not empty misPedidosBean.pedidosActivos}">
+                                        <div class="table-responsive">
+                                            <p:dataTable value="#{misPedidosBean.pedidosActivos}" 
+                                                         var="pedido" 
+                                                         styleClass="table table-striped table-hover"
+                                                         paginator="true" 
+                                                         rows="10"
+                                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                         rowsPerPageTemplate="5,10,15">
+
+                                                <p:column headerText="Servicio" sortBy="#{pedido.nombreServicio}">
+                                                    <strong>#{pedido.nombreServicio}</strong>
+                                                </p:column>
+
+                                                <p:column headerText="Cantidad" sortBy="#{pedido.cantidad}">
+                                                    #{pedido.cantidad}
+                                                </p:column>
+
+                                                <p:column headerText="Total" sortBy="#{pedido.total}">
+                                                    <h:outputText value="#{pedido.total}">
+                                                        <f:convertNumber type="currency" currencySymbol="S/. "/>
                                                     </h:outputText>
-                                                </small>
-                                            </p:column>
-                                            
-                                            <p:column headerText="Método Entrega">
-                                                <span class="badge bg-info">#{pedido.metodoEntrega}</span>
-                                            </p:column>
-                                            
-                                            <p:column headerText="Fecha Pedido" sortBy="#{pedido.fechaPedido}">
-                                                <h:outputText value="#{pedido.fechaPedido}">
-                                                    <f:convertDateTime type="localDate" pattern="dd/MM/yyyy"/>
-                                                </h:outputText>
-                                            </p:column>
-                                            
-                                            <p:column headerText="Observaciones">
-                                                <h:outputText value="#{pedido.observaciones}" 
-                                                             rendered="#{not empty pedido.observaciones}"/>
-                                                <span class="text-muted" 
-                                                      rendered="#{empty pedido.observaciones}">
-                                                    Sin observaciones
-                                                </span>
-                                            </p:column>
-                                        </p:dataTable>
-                                    </div>
-                                </h:panelGroup>
-                            </h:form>
+                                                </p:column>
+
+                                                <p:column headerText="Estado" sortBy="#{pedido.estado}">
+                                                    <span class="#{misPedidosBean.obtenerClaseBadge(pedido.estado)}">
+                                                        #{misPedidosBean.obtenerTextoBadge(pedido.estado)}
+                                                    </span>
+                                                </p:column>
+
+                                                <p:column headerText="Fecha Entrega" sortBy="#{pedido.fechaEntrega}">
+                                                    <h:outputText value="#{pedido.fechaEntrega}">
+                                                        <f:convertDateTime type="localDate" pattern="dd/MM/yyyy"/>
+                                                    </h:outputText>
+                                                    <br/>
+                                                    <small class="text-muted">
+                                                        <h:outputText value="#{pedido.horaEntrega}">
+                                                            <f:convertDateTime type="localTime" pattern="HH:mm"/>
+                                                        </h:outputText>
+                                                    </small>
+                                                </p:column>
+
+                                                <p:column headerText="Método Entrega">
+                                                    <span class="badge bg-info">#{pedido.metodoEntrega}</span>
+                                                </p:column>
+
+                                                <p:column headerText="Fecha Pedido" sortBy="#{pedido.fechaPedido}">
+                                                    <h:outputText value="#{pedido.fechaPedido}">
+                                                        <f:convertDateTime type="localDate" pattern="dd/MM/yyyy"/>
+                                                    </h:outputText>
+                                                </p:column>
+
+                                                <p:column headerText="Observaciones">
+                                                    <h:outputText value="#{pedido.observaciones}" 
+                                                                  rendered="#{not empty pedido.observaciones}"/>
+                                                    <span class="text-muted" 
+                                                          rendered="#{empty pedido.observaciones}">
+                                                        Sin observaciones
+                                                    </span>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </div>
+                                    </h:panelGroup>
+                                </h:form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Sección: Historial de Pedidos -->
-            <div class="row mb-5">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="section-title mb-0">
-                                <i class="fas fa-history"></i> Historial de Pedidos
-                            </h2>
-                        </div>
-                        <div class="card-body">
-                            <h:form id="formHistorialPedidos">
-                                <h:panelGroup rendered="#{empty misPedidosBean.pedidosCancelados}">
-                                    <div class="empty-state">
-                                        <i class="fas fa-ban"></i>
-                                        <h4>No tienes pedidos cancelados</h4>
-                                        <p>El historial de pedidos cancelados aparecerá aquí.</p>
-                                    </div>
-                                </h:panelGroup>
+                <!-- Sección: Historial de Pedidos -->
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="section-title mb-0">
+                                    <i class="fas fa-history"></i> Historial de Pedidos
+                                </h2>
+                            </div>
+                            <div class="card-body">
+                                <h:form id="formHistorialPedidos">
+                                    <h:panelGroup rendered="#{empty misPedidosBean.pedidosCancelados}">
+                                        <div class="empty-state">
+                                            <i class="fas fa-ban"></i>
+                                            <h4>No tienes pedidos cancelados</h4>
+                                            <p>El historial de pedidos cancelados aparecerá aquí.</p>
+                                        </div>
+                                    </h:panelGroup>
 
-                                <h:panelGroup rendered="#{not empty misPedidosBean.pedidosCancelados}">
-                                    <div class="table-responsive">
-                                        <p:dataTable value="#{misPedidosBean.pedidosCancelados}" 
-                                                    var="pedido" 
-                                                    styleClass="table table-striped table-hover"
-                                                    paginator="true" 
-                                                    rows="10"
-                                                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                    rowsPerPageTemplate="5,10,15">
-                                            
-                                            <p:column headerText="Servicio" sortBy="#{pedido.nombreServicio}">
-                                                <strong>#{pedido.nombreServicio}</strong>
-                                            </p:column>
-                                            
-                                            <p:column headerText="Cantidad" sortBy="#{pedido.cantidad}">
-                                                #{pedido.cantidad}
-                                            </p:column>
-                                            
-                                            <p:column headerText="Total" sortBy="#{pedido.total}">
-                                                <h:outputText value="#{pedido.total}">
-                                                    <f:convertNumber type="currency" currencySymbol="S/. "/>
-                                                </h:outputText>
-                                            </p:column>
-                                            
-                                            <p:column headerText="Estado" sortBy="#{pedido.estado}">
-                                                <span class="#{misPedidosBean.obtenerClaseBadge(pedido.estado)}">
-                                                    #{misPedidosBean.obtenerTextoBadge(pedido.estado)}
-                                                </span>
-                                            </p:column>
-                                            
-                                            <p:column headerText="Fecha Pedido" sortBy="#{pedido.fechaPedido}">
-                                                <h:outputText value="#{pedido.fechaPedido}">
-                                                    <f:convertDateTime type="localDate" pattern="dd/MM/yyyy"/>
-                                                </h:outputText>
-                                            </p:column>
-                                            
-                                            <p:column headerText="Método Entrega">
-                                                <span class="badge bg-info">#{pedido.metodoEntrega}</span>
-                                            </p:column>
-                                            
-                                            <p:column headerText="Observaciones">
-                                                <h:outputText value="#{pedido.observaciones}" 
-                                                             rendered="#{not empty pedido.observaciones}"/>
-                                                <span class="text-muted" 
-                                                      rendered="#{empty pedido.observaciones}">
-                                                    Sin observaciones
-                                                </span>
-                                            </p:column>
-                                        </p:dataTable>
-                                    </div>
-                                </h:panelGroup>
-                            </h:form>
+                                    <h:panelGroup rendered="#{not empty misPedidosBean.pedidosCancelados}">
+                                        <div class="table-responsive">
+                                            <p:dataTable value="#{misPedidosBean.pedidosCancelados}" 
+                                                         var="pedido" 
+                                                         styleClass="table table-striped table-hover"
+                                                         paginator="true" 
+                                                         rows="10"
+                                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                         rowsPerPageTemplate="5,10,15">
+
+                                                <p:column headerText="Servicio" sortBy="#{pedido.nombreServicio}">
+                                                    <strong>#{pedido.nombreServicio}</strong>
+                                                </p:column>
+
+                                                <p:column headerText="Cantidad" sortBy="#{pedido.cantidad}">
+                                                    #{pedido.cantidad}
+                                                </p:column>
+
+                                                <p:column headerText="Total" sortBy="#{pedido.total}">
+                                                    <h:outputText value="#{pedido.total}">
+                                                        <f:convertNumber type="currency" currencySymbol="S/. "/>
+                                                    </h:outputText>
+                                                </p:column>
+
+                                                <p:column headerText="Estado" sortBy="#{pedido.estado}">
+                                                    <span class="#{misPedidosBean.obtenerClaseBadge(pedido.estado)}">
+                                                        #{misPedidosBean.obtenerTextoBadge(pedido.estado)}
+                                                    </span>
+                                                </p:column>
+
+                                                <p:column headerText="Fecha Pedido" sortBy="#{pedido.fechaPedido}">
+                                                    <h:outputText value="#{pedido.fechaPedido}">
+                                                        <f:convertDateTime type="localDate" pattern="dd/MM/yyyy"/>
+                                                    </h:outputText>
+                                                </p:column>
+
+                                                <p:column headerText="Método Entrega">
+                                                    <span class="badge bg-info">#{pedido.metodoEntrega}</span>
+                                                </p:column>
+
+                                                <p:column headerText="Observaciones">
+                                                    <h:outputText value="#{pedido.observaciones}" 
+                                                                  rendered="#{not empty pedido.observaciones}"/>
+                                                    <span class="text-muted" 
+                                                          rendered="#{empty pedido.observaciones}">
+                                                        Sin observaciones
+                                                    </span>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </div>
+                                    </h:panelGroup>
+                                </h:form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Botón de Refresco -->
-            <div class="row mb-4">
-                <div class="col-12 text-center">
-                    <h:form>
-                        <h:commandButton value="Refrescar Pedidos" 
-                                        action="#{misPedidosBean.refrescarPedidos}" 
-                                        styleClass="btn btn-outline-primary">
-                            <i class="fas fa-sync-alt"></i>
-                        </h:commandButton>
-                    </h:form>
+                <!-- Botón de Refresco -->
+                <div class="row mb-4">
+                    <div class="col-12 text-center">
+                        <h:form>
+                            <h:commandButton value="Refrescar Pedidos" 
+                                             action="#{misPedidosBean.refrescarPedidos}" 
+                                             styleClass="btn btn-outline-primary">
+                                <i class="fas fa-sync-alt"></i>
+                            </h:commandButton>
+                        </h:form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </f:view>
+        </f:view>
 
-    <!-- Scripts de Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</h:body>
+        <!-- Scripts de Bootstrap -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </h:body>
 </html>

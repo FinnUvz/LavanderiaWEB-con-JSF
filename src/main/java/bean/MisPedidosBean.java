@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import static util.NavigationController.CLIENTE_INICIO;
+import static util.NavigationController.LOGIN_PAGE;
 
 @Named
 @ViewScoped
@@ -109,21 +111,15 @@ public class MisPedidosBean implements Serializable {
         }
     }
     
-    /**
-     * Navega de vuelta al dashboard
-     * @return Página de destino
-     */
-    public String volverAlDashboard() {
-        return "dashboard.xhtml?faces-redirect=true";
+    
+     public String irInicio() {
+        return CLIENTE_INICIO+"?faces-redirect=true";
     }
     
-    /**
-     * Cierra la sesión del usuario
-     * @return Página de login
-     */
+    
     public String cerrarSesion() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "login.xhtml?faces-redirect=true";
+        return LOGIN_PAGE+"?faces-redirect=true";
     }
     
     /**

@@ -241,10 +241,12 @@
                     <span class="welcome-message">
                         Bienvenido, #{loginBean.usuarioLogueado.nombre}
                     </span>
+                    <h:form>
                     <p:commandButton value="Cerrar Sesión" 
                                     action="#{loginBean.logout}"
                                     icon="pi pi-sign-out"
                                     styleClass="logout-btn" />
+                    </h:form>
                 </div>
             </div>
         </div>
@@ -272,10 +274,12 @@
                     <p class="service-description">
                         Solicita un nuevo servicio de lavandería. Selecciona el tipo de servicio y programa la recolección.
                     </p>
+                   
                     <p:commandButton value="Crear Pedido" 
                                     styleClass="service-button"
                                     icon="pi pi-plus"
                                     action="nuevoPedido?faces-redirect=true" />
+                    
                 </div>
 
                 <div class="service-card">
@@ -286,25 +290,14 @@
                     <p class="service-description">
                         Consulta el estado de tus pedidos actuales y revisa el historial de servicios anteriores.
                     </p>
+                   
                     <p:commandButton value="Ver Pedidos" 
                                     styleClass="service-button"
                                     icon="pi pi-eye"
                                     action="misPedidos?faces-redirect=true" />
+                    
                 </div>
 
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="pi pi-user"></i>
-                    </div>
-                    <h3 class="service-title">Mi Perfil</h3>
-                    <p class="service-description">
-                        Actualiza tu información personal, cambia tu contraseña y gestiona tus preferencias.
-                    </p>
-                    <p:commandButton value="Editar Perfil" 
-                                    styleClass="service-button"
-                                    icon="pi pi-user-edit"
-                                    onclick="PF('perfilDialog').show();" />
-                </div>
             </div>
 
             <!-- Información del Servicio -->
@@ -351,15 +344,17 @@
         </h:form>
     </div>
 
-    <!-- Dialogs (Modales) -->
+   <h:form>
     <p:dialog header="Próximamente" widgetVar="nuevoPedidoDialog" modal="true" width="400">
         <p:panel style="text-align: center; padding: 20px;">
             <i class="pi pi-info-circle" style="font-size: 3em; color: #667eea; margin-bottom: 15px;"></i>
             <p style="font-size: 1.1em; color: #555;">
                 La funcionalidad de crear pedidos estará disponible próximamente.
             </p>
+            
             <p:commandButton value="Cerrar" onclick="PF('nuevoPedidoDialog').hide();" 
                             style="margin-top: 15px;" />
+            
         </p:panel>
     </p:dialog>
 
@@ -384,5 +379,6 @@
                             style="margin-top: 15px;" />
         </p:panel>
     </p:dialog>
+    </h:form>
 </h:body>
 </html>

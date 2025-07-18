@@ -49,7 +49,7 @@ public class PedidoDAOImpl implements PedidoDAO {
     @Override
     public List<PedidoDTO> obtenerPedidosPorUsuario(int idUsuario) {
         List<PedidoDTO> pedidos = new ArrayList<>();
-        String sql = "SELECT p.*, s.nombre_servicio, u.nombres || ' ' || u.apellidos as nombre_usuario " +
+        String sql = "SELECT p.*, s.nombre_servicio, u.nombres as nombre_usuario " +
                     "FROM pedido p " +
                     "JOIN servicio s ON p.id_servicio = s.id_servicio " +
                     "JOIN usuarios u ON p.id_usuario = u.id_usuario " +
@@ -78,7 +78,7 @@ public class PedidoDAOImpl implements PedidoDAO {
     
     @Override
     public PedidoDTO obtenerPedidoPorId(int idPedido) {
-        String sql = "SELECT p.*, s.nombre_servicio, u.nombres || ' ' || u.apellidos as nombre_usuario " +
+        String sql = "SELECT p.*, s.nombre_servicio, u.nombre as nombre_usuario " +
                     "FROM pedido p " +
                     "JOIN servicio s ON p.id_servicio = s.id_servicio " +
                     "JOIN usuarios u ON p.id_usuario = u.id_usuario " +
@@ -106,7 +106,7 @@ public class PedidoDAOImpl implements PedidoDAO {
     @Override
     public List<PedidoDTO> obtenerTodosPedidos() {
         List<PedidoDTO> pedidos = new ArrayList<>();
-        String sql = "SELECT p.*, s.nombre_servicio, u.nombres || ' ' || u.apellidos as nombre_usuario " +
+        String sql = "SELECT p.*, s.nombre_servicio, u.nombre as nombre_usuario " +
                     "FROM pedido p " +
                     "JOIN servicio s ON p.id_servicio = s.id_servicio " +
                     "JOIN usuarios u ON p.id_usuario = u.id_usuario " +
@@ -152,7 +152,7 @@ public class PedidoDAOImpl implements PedidoDAO {
     @Override
     public List<PedidoDTO> obtenerPedidosPorEstado(String estado) {
         List<PedidoDTO> pedidos = new ArrayList<>();
-        String sql = "SELECT p.*, s.nombre_servicio, u.nombres || ' ' || u.apellidos as nombre_usuario " +
+        String sql = "SELECT p.*, s.nombre_servicio, u.nombre as nombre_usuario " +
                     "FROM pedido p " +
                     "JOIN servicio s ON p.id_servicio = s.id_servicio " +
                     "JOIN usuarios u ON p.id_usuario = u.id_usuario " +
@@ -283,5 +283,24 @@ public class PedidoDAOImpl implements PedidoDAO {
         }
         
         return pedidos;
+    }
+
+    @Override
+    public boolean eliminarPedido(int idPedido) {
+        String sql = "DELETE FROM pedido WHERE id_pedido = ?";
+    
+    try (Connection conn = PostgreSQLConnection.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+        
+        stmt.setInt(1, idPedido);
+        
+        return stmt.executeUpdate() > 0;
+        
+    } catch (SQLException | ClassNotFoundException e) {
+        System.err.println("Error al eliminar pedido: " + e.getMessage());
+        e.printStackTrace();
+    }
+    
+    return false;
     }
 }
