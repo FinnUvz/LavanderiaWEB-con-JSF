@@ -202,27 +202,28 @@
                         <h:panelGrid columns="1" cellpadding="2" styleClass="acciones-grid">
                             <h:panelGroup>
                                 <p:commandButton icon="pi pi-eye"
-                                                 styleClass="btn btn-sm btn-info"
+                                                 styleClass="btn btn-sm btn-danger"
                                                  action="#{gestionPedidosAdminBean.verDetalles(pedido)}"
                                                  update="formDetalles"
                                                  oncomplete="PF('dialogDetalles').show()"
                                                  title="Ver"/>
 
                                 <p:commandButton icon="pi pi-pencil"
-                                                 styleClass="btn btn-sm btn-warning"
+                                                 styleClass="btn btn-sm btn-danger"
                                                  action="#{gestionPedidosAdminBean.abrirModalEditar(pedido)}"
                                                  update="formEditarPedido"
                                                  oncomplete="PF('dialogEditarPedido').show()"
-                                                 title="Editar"/>
+                                                 title="Editar"
+                                                 disabled="#{pedido.estado eq 'Entregado' or pedido.estado eq 'Cancelado'}"/>
                             </h:panelGroup>
 
                             <h:panelGroup>
                                 <p:commandButton icon="pi pi-refresh"
-                                                 styleClass="btn btn-sm btn-success"
+                                                 styleClass="btn btn-sm btn-danger"
                                                  action="#{gestionPedidosAdminBean.abrirModalCambiarEstado(pedido)}"
                                                  update="formCambiarEstado"
                                                  oncomplete="PF('dialogCambiarEstado').show()"
-                                                 title="Cambiar Estado"
+                                                 title="Cambiar Estado"                                           
                                                  disabled="#{pedido.estado eq 'Cancelado'}"/>
 
                                 <p:commandButton icon="pi pi-trash"
@@ -230,7 +231,8 @@
                                                  action="#{gestionPedidosAdminBean.confirmarEliminar(pedido)}"
                                                  update="formConfirmacion"
                                                  oncomplete="PF('dialogConfirmacion').show()"
-                                                 title="Eliminar"/>
+                                                 title="Eliminar"
+                                                  disabled="#{pedido.estado eq 'Entregado' or pedido.estado eq 'Cancelado'}"/>
                             </h:panelGroup>
                         </h:panelGrid>
                     </p:column>
