@@ -45,8 +45,8 @@ public class GestionServiciosBean implements Serializable {
         mostrarFormulario = true;
     }
 
-    public void prepararEditarServicio(ServicioDTO servicioDTO) {
-        servicioSeleccionado = servicioDAO.obtenerServicioPorId(servicioDTO.getIdServicio());
+    public void prepararEditarServicio(ServicioDTO ServicioDTO) {
+        servicioSeleccionado = servicioDAO.obtenerServicioPorId(ServicioDTO.getIdServicio());
         mostrarFormulario = true;
     }
 
