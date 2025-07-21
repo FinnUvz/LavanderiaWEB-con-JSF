@@ -50,6 +50,28 @@ public class GestionServiciosBean implements Serializable {
         mostrarFormulario = true;
     }
 
+            // Métodos adicionales que necesitarás en tu bean
+        public void prepararVerDetalles(ServicioDTO servicio) {
+            this.servicioSeleccionado = servicioDAO.obtenerServicioPorId(servicio.getIdServicio());
+        }
+
+        public void prepararEliminarServicio(ServicioDTO servicio) {
+            this.servicioSeleccionado = servicio;
+        }
+
+        public boolean activarServicio() {
+            if (servicioSeleccionado != null) {
+                servicioSeleccionado.setActivo(true);
+                boolean resultado = servicioDAO.actualizarServicio(servicioSeleccionado);
+                FacesMessage mensaje = new FacesMessage(
+                    resultado ? "Servicio activado exitosamente" : "Error al activar servicio");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+                cargarServicios();
+                return resultado;
+            }
+            return false;
+        }
+
     public void guardarServicio() {
         boolean resultado;
         FacesMessage mensaje;
