@@ -58,17 +58,16 @@
                             <h5 class="card-title">Resumen por Método de Pago</h5>
                         </div>
                         <div class="card-body">
-                            <p:dataList value="#{reporteIngresos.gananciasPorMetodoPago.entrySet().toArray()}" 
-                                        var="entry" type="none" itemType="none">
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span>#{entry.key}</span>
-                                    <span>
-                                        <h:outputText value="#{entry.value}">
-                                            <f:convertNumber type="currency" currencySymbol="S/." />
-                                        </h:outputText>
-                                    </span>
-                                </div>
-                            </p:dataList>
+                <p:dataList value="#{reporteIngresos.gananciasPorServicio.entrySet().toArray()}" var="entry">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>#{entry.key}</span>
+                        <span>
+                            <h:outputText value="#{entry.value}">
+                                <f:convertNumber type="currency" currencySymbol="S/." />
+                            </h:outputText>
+                        </span>
+                    </div>
+                </p:dataList>
                         </div>
                     </div>
                 </div>

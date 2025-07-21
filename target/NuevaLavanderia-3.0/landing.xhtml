@@ -1,0 +1,386 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Lavandería Express</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <style>
+            .promo-text {
+                background-color: #f8f9fa;
+                padding: 15px;
+                border-radius: 5px;
+                margin: 10px 0;
+            }
+            .service-card {
+                margin-bottom: 20px;
+                transition: transform 0.3s;
+            }
+            .service-card:hover {
+                transform: translateY(-5px);
+            }
+            .team-img {
+                width: 150px;
+                height: 150px;
+                object-fit: cover;
+                border-radius: 50%;
+                border: 5px solid #fff;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            }
+            .promo-img {
+                transition: transform 0.3s;
+                margin: 10px;
+            }
+            .promo-img:hover {
+                transform: scale(1.05);
+            }
+            .product-card {
+                margin-bottom: 20px;
+                transition: all 0.3s;
+            }
+            .product-card:hover {
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            }
+            .step-img {
+                height: 300px;
+                object-fit: cover;
+                border-radius: 8px;
+            }
+            .carousel-control-prev-icon,
+            .carousel-control-next-icon {
+                background-color: rgba(0,0,0,0.5);
+                border-radius: 50%;
+                padding: 15px;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <!-- Navbar Responsive Actualizado con Botón Login -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+            <div class="container-fluid">
+                <!-- Contacto y redes sociales -->
+                <div class="d-flex align-items-center">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="dropdown d-lg-none">
+                        <button class="btn btn-outline-secondary dropdown-toggle ms-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                            Contáctanos
+                        </button>
+                        <ul class="dropdown-menu">
+                            <!-- INSERTAR ENLACES A REDES SOCIALES AQUÍ -->
+                            <li><a class="dropdown-item" href="#facebook-link">Facebook</a></li>
+                            <li><a class="dropdown-item" href="#instagram-link">Instagram</a></li>
+                            <li><a class="dropdown-item" href="#whatsapp-link">WhatsApp</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-none d-lg-flex">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                                Contáctanos
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- INSERTAR ENLACES A REDES SOCIALES AQUÍ -->
+                                <li><a class="dropdown-item" href="#facebook-link">Facebook</a></li>
+                                <li><a class="dropdown-item" href="#instagram-link">Instagram</a></li>
+                                <li><a class="dropdown-item" href="#whatsapp-link">WhatsApp</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#guia-pedidos">Guía para pedidos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#mas-info">Más información</a>
+                        </li>
+                    </ul>
+                    
+                    <!-- Logo en medio -->
+                    <a class="navbar-brand mx-auto" href="#">
+                        <!-- INSERTAR RUTA DE LA IMAGEN DEL LOGO AQUÍ -->
+                        <img src="#ruta-del-logo" alt="Lavandería Express" height="60" />
+                    </a>
+                    
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#servicios">Servicios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#equipo">Equipo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#promos">Promociones</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#productos">Productos</a>
+                        </li>
+                        <!-- Botón Login/Registro -->
+                        <li class="nav-item">
+                            <a href="http://localhost:8080/NuevaLavanderia/login.xhtml" target ="_blank" class="btn btn-primary ms-2">
+                                Ingresar o registrarse
+                            </a>
+                        </li>
+                        </ul>
+                        </div>
+                        </div>
+                        </nav>
+
+        <!-- Mensaje de promoción -->
+        <div class="container mt-3">
+            <div class="promo-text text-center">
+                <p class="lead">En Lavandería Express estamos equipados con maquinaria moderna para ofrecerte el mejor servicio.</p>
+            </div>
+        </div>
+
+        <!-- Guía para hacer pedidos - Versión mejorada con carrusel -->
+        <section id="guia-pedidos" class="container my-5">
+            <h2 class="text-center mb-4">Guía para hacer pedidos</h2>
+            <div class="card">
+                <div class="card-body">
+                    <!-- Texto explicativo -->
+                    <div class="mb-4">
+                        <!-- INSERTAR TEXTO EXPLICATIVO AQUÍ -->
+                        <p>Sigue estos sencillos pasos para realizar tu pedido en Lavandería Express:</p>
+                        <ol>
+                            <li>Selecciona el tipo de servicio que necesitas</li>
+                            <li>Especifica las prendas y cantidades</li>
+                            <li>Elige tu método de pago preferido</li>
+                            <li>Programa la recolección o entrega</li>
+                            <li>¡Listo! Nos encargaremos del resto</li>
+                        </ol>
+                    </div>
+                    
+                    <!-- Carrusel de imágenes -->
+                    <div id="pedidosCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#pedidosCarousel" data-bs-slide-to="0" class="active"></button>
+                            <button type="button" data-bs-target="#pedidosCarousel" data-bs-slide-to="1"></button>
+                            <button type="button" data-bs-target="#pedidosCarousel" data-bs-slide-to="2"></button>
+                            <button type="button" data-bs-target="#pedidosCarousel" data-bs-slide-to="3"></button>
+                            <!-- Agrega más indicadores si necesitas más imágenes -->
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <!-- INSERTAR IMAGEN DEL PASO 1 AQUÍ -->
+                                <img src="#ruta-imagen-paso1" class="d-block w-100 step-img" alt="Paso 1: Seleccionar servicio" />
+                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+                                    <h5>Paso 1</h5>
+                                    <p>Selecciona el tipo de servicio que necesitas</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <!-- INSERTAR IMAGEN DEL PASO 2 AQUÍ -->
+                                <img src="#ruta-imagen-paso2" class="d-block w-100 step-img" alt="Paso 2: Especificar prendas" />
+                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+                                    <h5>Paso 2</h5>
+                                    <p>Especifica las prendas y cantidades</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <!-- INSERTAR IMAGEN DEL PASO 3 AQUÍ -->
+                                <img src="#ruta-imagen-paso3" class="d-block w-100 step-img" alt="Paso 3: Método de pago" />
+                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+                                    <h5>Paso 3</h5>
+                                    <p>Elige tu método de pago preferido</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <!-- INSERTAR IMAGEN DEL PASO 4 AQUÍ -->
+                                <img src="#ruta-imagen-paso4" class="d-block w-100 step-img" alt="Paso 4: Programar entrega" />
+                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+                                    <h5>Paso 4</h5>
+                                    <p>Programa la recolección o entrega</p>
+                                </div>
+                            </div>
+                            <!-- Agrega más items del carrusel si necesitas más imágenes -->
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#pedidosCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Anterior</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#pedidosCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Siguiente</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Las demás secciones permanecen igual que en el código anterior -->
+        <!-- Más información -->
+        <section id="mas-info" class="container my-5">
+            <h2 class="text-center mb-4">Más sobre nosotros</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- INSERTAR DESCRIPCIÓN DEL NEGOCIO AQUÍ -->
+                    <p>Descripción detallada de tu lavandería, historia, misión, visión y valores.</p>
+                </div>
+                <div class="col-md-6">
+                    <!-- INSERTAR IMÁGENES REFERENCIALES AQUÍ -->
+                    <img src="#ruta-imagen-referencial" class="img-fluid rounded" alt="Lavandería Express" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Servicios principales -->
+        <section id="servicios" class="container my-5">
+            <h2 class="text-center mb-4">Nuestros Servicios</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card service-card">
+                        <!-- INSERTAR IMAGEN DE LAVADO AQUÍ -->
+                        <img src="#ruta-imagen-lavado" class="card-img-top" alt="Lavado" />
+                        <div class="card-body">
+                            <h5 class="card-title">Lavado</h5>
+                            <!-- INSERTAR DESCRIPCIÓN DE LAVADO AQUÍ -->
+                            <p class="card-text">Descripción del servicio de lavado.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card service-card">
+                        <!-- INSERTAR IMAGEN DE SECADO AQUÍ -->
+                        <img src="#ruta-imagen-secado" class="card-img-top" alt="Secado" />
+                        <div class="card-body">
+                            <h5 class="card-title">Secado</h5>
+                            <!-- INSERTAR DESCRIPCIÓN DE SECADO AQUÍ -->
+                            <p class="card-text">Descripción del servicio de secado.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card service-card">
+                        <!-- INSERTAR IMAGEN DE TINTADO AQUÍ -->
+                        <img src="#ruta-imagen-tintado" class="card-img-top" alt="Tintado" />
+                        <div class="card-body">
+                            <h5 class="card-title">Tintado</h5>
+                            <!-- INSERTAR DESCRIPCIÓN DE TINTADO AQUÍ -->
+                            <p class="card-text">Descripción del servicio de tintado.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card service-card">
+                        <!-- INSERTAR IMAGEN DE PLANCHADO AQUÍ -->
+                        <img src="#ruta-imagen-planchado" class="card-img-top" alt="Planchado" />
+                        <div class="card-body">
+                            <h5 class="card-title">Planchado</h5>
+                            <!-- INSERTAR DESCRIPCIÓN DE PLANCHADO AQUÍ -->
+                            <p class="card-text">Descripción del servicio de planchado.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dueño y persona -->
+        <section id="equipo" class="container my-5">
+            <h2 class="text-center mb-4">Nuestro Equipo</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-4 text-center">
+                    <!-- INSERTAR IMAGEN DEL DUEÑO AQUÍ -->
+                    <img src="#ruta-imagen-dueno" class="team-img" alt="Dueño" />
+                    <h4 class="mt-3">Nombre del Dueño</h4>
+                    <p>Dueño y Fundador</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <!-- INSERTAR IMAGEN DE PERSONAL AQUÍ -->
+                    <img src="#ruta-imagen-personal" class="team-img" alt="Personal" />
+                    <h4 class="mt-3">Nombre del Personal</h4>
+                    <p>Cargo del Personal</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Promos -->
+        <section id="promos" class="container my-5">
+            <h2 class="text-center mb-4">Promociones</h2>
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <!-- INSERTAR IMAGEN DE PROMO 1 AQUÍ -->
+                    <img src="#ruta-imagen-promo1" class="img-fluid promo-img" alt="Promoción 1" />
+                </div>
+                <div class="col-md-4 text-center">
+                    <!-- INSERTAR IMAGEN DE PROMO 2 AQUÍ -->
+                    <img src="#ruta-imagen-promo2" class="img-fluid promo-img" alt="Promoción 2" />
+                </div>
+                <div class="col-md-4 text-center">
+                    <!-- INSERTAR IMAGEN DE PROMO 3 AQUÍ -->
+                    <img src="#ruta-imagen-promo3" class="img-fluid promo-img" alt="Promoción 3" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Productos en tienda -->
+        <section id="productos" class="container my-5">
+            <h2 class="text-center mb-4">Productos en Tienda</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card product-card">
+                        <!-- INSERTAR IMAGEN DE PRODUCTO 1 AQUÍ -->
+                        <img src="#ruta-imagen-producto1" class="card-img-top" alt="Producto 1" />
+                        <div class="card-body">
+                            <h5 class="card-title">Producto 1</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card product-card">
+                        <!-- INSERTAR IMAGEN DE PRODUCTO 2 AQUÍ -->
+                        <img src="#ruta-imagen-producto2" class="card-img-top" alt="Producto 2" />
+                        <div class="card-body">
+                            <h5 class="card-title">Producto 2</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card product-card">
+                        <!-- INSERTAR IMAGEN DE PRODUCTO 3 AQUÍ -->
+                        <img src="#ruta-imagen-producto3" class="card-img-top" alt="Producto 3" />
+                        <div class="card-body">
+                            <h5 class="card-title">Producto 3</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card product-card">
+                        <!-- INSERTAR IMAGEN DE PRODUCTO 4 AQUÍ -->
+                        <img src="#ruta-imagen-producto4" class="card-img-top" alt="Producto 4" />
+                        <div class="card-body">
+                            <h5 class="card-title">Producto 4</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-dark text-white py-4 mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>Contacto</h5>
+                        <p>Dirección: [INSERTAR DIRECCIÓN]</p>
+                        <p>Teléfono: [INSERTAR TELÉFONO]</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Horario</h5>
+                        <p>Lunes a Viernes: [INSERTAR HORARIO]</p>
+                        <p>Sábados: [INSERTAR HORARIO]</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Síguenos</h5>
+                        <!-- INSERTAR ENLACES A REDES SOCIALES AQUÍ -->
+                        <a href="#facebook-link" class="text-white me-2">Facebook</a>
+                        <a href="#instagram-link" class="text-white me-2">Instagram</a>
+                        <a href="#whatsapp-link" class="text-white">WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </h:body>
+</html>

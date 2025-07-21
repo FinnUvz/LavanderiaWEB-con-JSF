@@ -12,6 +12,7 @@ C:\Users\Computer\Documents\GitHub\LavanderiaWEB-con-JSF\src\main\java\bean\Form
 C:\Users\Computer\Documents\GitHub\LavanderiaWEB-con-JSF\src\main\java\bean\GestionPedidosAdminBean.java
 C:\Users\Computer\Documents\GitHub\LavanderiaWEB-con-JSF\src\main\java\dto\PedidoDTO.java
 C:\Users\Computer\Documents\GitHub\LavanderiaWEB-con-JSF\src\main\java\dto\UsuarioDTO.java
+C:\Users\Computer\Documents\GitHub\LavanderiaWEB-con-JSF\src\main\java\bean\ReporteIngresos.java
 C:\Users\Computer\Documents\GitHub\LavanderiaWEB-con-JSF\src\main\java\dao\ServicioDAO.java
 C:\Users\Computer\Documents\GitHub\LavanderiaWEB-con-JSF\src\main\java\dto\ServicioDTO.java
 C:\Users\Computer\Documents\GitHub\LavanderiaWEB-con-JSF\src\main\java\bean\NuevoPedidoBean.java
@@ -20,3 +21,4 @@ C:\Users\Computer\Documents\GitHub\LavanderiaWEB-con-JSF\src\main\java\dao\impl\
 C:\Users\Computer\Documents\GitHub\LavanderiaWEB-con-JSF\src\main\java\util\NavigationController.java
 C:\Users\Computer\Documents\GitHub\LavanderiaWEB-con-JSF\src\main\java\util\PasswordUtils.java
 C:\Users\Computer\Documents\GitHub\LavanderiaWEB-con-JSF\src\main\java\bean\MisPedidosBean.java
+C:\Users\Computer\Documents\GitHub\LavanderiaWEB-con-JSF\src\main\java\bean\GestionServiciosBean.java
