@@ -1,19 +1,664 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
-<h:head>
-    <title>JSF con PrimeFaces</title>
-</h:head>
-<h:body>
-    <h:form id="formulario">
-        <p:panel header="Formulario de saludo">
-            <p:inputText value="#{formularioBean.nombre}" placeholder="Ingresa tu nombre" />
-            <p:commandButton value="Enviar" action="#{formularioBean.enviar}" update="msg" />
-        </p:panel>
-        <p:outputLabel id="msg" value="#{formularioBean.mensaje}" style="display:block;margin-top:10px;" />
-    </h:form>
-</h:body>
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Gestión de Lavandería</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
+              rel="stylesheet"/>
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+
+        <style>
+            .card-header {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+            }
+
+            .service-info {
+                background-color: #f8f9fa;
+                border-radius: 8px;
+                padding: 15px;
+                margin-top: 10px;
+            }
+
+            .total-section {
+                background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+                color: white;
+                border-radius: 10px;
+                padding: 20px;
+                text-align: center;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+
+            .form-section {
+                background: white;
+                border-radius: 10px;
+                padding: 20px;
+                margin-bottom: 20px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            .section-title {
+                color: #495057;
+                font-weight: 600;
+                margin-bottom: 15px;
+                border-bottom: 2px solid #e9ecef;
+                padding-bottom: 5px;
+            }
+
+            .ui-selectonemenu {
+                width: 100% !important;
+            }
+
+            .ui-inputtext, .ui-selectonemenu {
+                border-radius: 8px !important;
+            }
+
+            .ui-button {
+                border-radius: 8px !important;
+            }
+
+            .method-card {
+                border: 2px solid #e9ecef;
+                border-radius: 10px;
+                padding: 15px;
+                margin-bottom: 10px;
+                transition: all 0.3s ease;
+            }
+
+            .method-card:hover {
+                border-color: #667eea;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            }
+
+            .method-card.selected {
+                border-color: #667eea;
+                background-color: #f8f9ff;
+            }
+
+            .navbar-custom {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            }
+
+            .navbar-custom .navbar-brand {
+                color: white !important;
+                font-weight: bold;
+            }
+
+            .navbar-custom .nav-link {
+                color: white !important;
+            }
+
+            .toggle-buttons {
+                background: white;
+                border-radius: 10px;
+                padding: 10px;
+                margin-bottom: 20px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            .toggle-buttons .btn {
+                margin: 0 5px;
+                border-radius: 25px;
+                padding: 10px 25px;
+                font-weight: 600;
+                transition: all 0.3s ease;
+            }
+
+            .toggle-buttons .btn-primary {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                border: none;
+            }
+
+            .toggle-buttons .btn-outline-primary {
+                color: #667eea;
+                border-color: #667eea;
+            }
+
+            .toggle-buttons .btn-outline-primary:hover {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                border-color: #667eea;
+            }
+
+            .content-section {
+                display: none;
+            }
+
+            .content-section.active {
+                display: block;
+            }
+
+            .ui-datatable .ui-datatable-header {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+            }
+
+            .ui-dialog .ui-dialog-titlebar {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+            }
+
+            /* Estilos para badges de estado */
+            .badge {
+                font-size: 0.8em;
+                padding: 0.4em 0.8em;
+                border-radius: 0.5em;
+            }
+
+            .bg-secondary {
+                background-color: #6c757d !important;
+            }
+
+            .bg-primary {
+                background-color: #0d6efd !important;
+            }
+
+            .bg-warning {
+                background-color: #ffc107 !important;
+                color: #000 !important;
+            }
+
+            .bg-success {
+                background-color: #198754 !important;
+            }
+
+            .bg-danger {
+                background-color: #dc3545 !important;
+            }
+        </style>
+        <!-- JavaScript para manejar el cambio de secciones -->
+        <h:outputScript>
+            // Asigna la función al ámbito global (window)
+            window.mostrarSeccion = function(seccion) {
+            // Usa este selector que funciona con JSF/PrimeFaces
+            var $ = PrimeFaces.utils.jQuery || jQuery; // Fallback si PrimeFaces no está disponible
+
+            // Ocultar todas las secciones
+            $('[id*="seccionClientes"]').removeClass('active');
+            $('[id*="seccionPedidos"]').removeClass('active');
+
+            // Cambiar estilos de botones
+            $('[id*="btnClientes"]').removeClass('btn-primary').addClass('btn-outline-primary');
+            $('[id*="btnPedidos"]').removeClass('btn-primary').addClass('btn-outline-primary');
+
+            // Mostrar sección seleccionada
+            if (seccion === 'clientes') {
+            $('[id*="seccionClientes"]').addClass('active');
+            $('[id*="btnClientes"]').removeClass('btn-outline-primary').addClass('btn-primary');
+            } else if (seccion === 'pedidos') {
+            $('[id*="seccionPedidos"]').addClass('active');
+            $('[id*="btnPedidos"]').removeClass('btn-outline-primary').addClass('btn-primary');
+            }
+            };
+
+            // Opcional: Inicializar la sección activa al cargar
+            $(document).ready(function() {
+            mostrarSeccion('clientes'); // Mostrar clientes por defecto
+            });
+        </h:outputScript>
+    </h:head>
+
+    <h:body>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-custom">
+            <div class="container">
+                <a class="navbar-brand" href="dashboard.xhtml">
+                    <i class="fas fa-tshirt me-2"></i>
+                    Lavandería WebApp
+                </a>
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link" href="dashboard.xhtml">
+                        <i class="fas fa-home me-1"></i>
+                        Dashboard
+                    </a>
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-user me-1"></i>
+                        #{loginBean.usuarioLogueado.nombre}
+                    </a>
+                    <a class="nav-link" href="login.xhtml">
+                        <i class="fas fa-sign-out-alt me-1"></i>
+                        Cerrar Sesión
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container mt-4">
+            <!-- Botones de alternancia -->
+            <div class="toggle-buttons text-center">
+                <button type="button" class="btn btn-primary" id="btnClientes" onclick="mostrarSeccion('clientes')">
+                    <i class="fas fa-users me-2"></i>
+                    Gestión de Clientes
+                </button>
+                <button type="button" class="btn btn-outline-primary" id="btnPedidos" onclick="mostrarSeccion('pedidos')">
+                    <i class="fas fa-list-alt me-2"></i>
+                    Gestión de Pedidos
+                </button>
+            </div>
+
+            <!-- Mensajes globales -->
+            <div class="row mb-3">
+                <div class="col-12">
+                    <p:messages id="globalMessages" showDetail="true" closable="true"/>
+                </div>
+            </div>
+
+            <!-- =================== SECCIÓN CLIENTES =================== -->
+            <div id="seccionClientes" class="content-section active">
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h3 class="mb-0">
+                                    <i class="fas fa-users me-2"></i>
+                                    Gestión de Clientes
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h:form id="formClientes">
+                    <div class="form-section">
+                        <!-- Botón para agregar nuevo cliente -->
+                        <p:commandButton value="Agregar Cliente" 
+                                         onclick="PF('dlgAgregar').show()" 
+                                         styleClass="btn btn-success mb-3"
+                                         icon="pi pi-plus" />
+
+                        <!-- Tabla de clientes con edición inline -->
+                        <p:dataTable id="tablaClientes" 
+                                     value="#{clientesBean.clientes}" 
+                                     var="cliente" 
+                                     paginator="true" 
+                                     rows="10" 
+                                     rowKey="#{cliente.idUsuario}"
+                                     editable="true" 
+                                     editMode="row"
+                                     styleClass="table table-striped">
+
+                            <p:ajax event="rowEdit" 
+                                    listener="#{clientesBean.onRowEdit}" 
+                                    update=":formClientes:messages" />
+                            <p:ajax event="rowEditCancel" 
+                                    listener="#{clientesBean.onRowCancel}" 
+                                    update=":formClientes:messages" />
+
+                            <p:column headerText="ID" sortBy="#{cliente.idUsuario}">
+                                <h:outputText value="#{cliente.idUsuario}" />
+                            </p:column>
+
+                            <p:column headerText="Nombre" sortBy="#{cliente.nombre}">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{cliente.nombre}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{cliente.nombre}" required="true" />
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Correo" sortBy="#{cliente.correo}">
+                                <h:outputText value="#{cliente.correo}" />
+                            </p:column>
+
+                            <p:column headerText="Teléfono">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{cliente.telefono}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{cliente.telefono}" required="true" />
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Dirección">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{cliente.direccion}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{cliente.direccion}" required="true" />
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Acciones" style="text-align: center; width: 120px;">
+                                <p:rowEditor />
+                                <p:commandButton value="Eliminar" 
+                                                 action="#{clientesBean.eliminarCliente(cliente)}"
+                                                 update=":formClientes" 
+                                                 icon="pi pi-trash"
+                                                 styleClass="ui-button-danger"
+                                                 style="margin-left: 5px;"
+                                                 onclick="return confirm('¿Está seguro de eliminar este cliente?');" />
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:messages id="messages" />
+                    </div>
+                </h:form>
+
+                <!-- Diálogo para agregar nuevo cliente -->
+                <p:dialog header="Agregar Nuevo Cliente" widgetVar="dlgAgregar" modal="true" resizable="false">
+                    <h:form id="formAgregar">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Nombre:" />
+                            <p:inputText value="#{clientesBean.nuevoCliente.nombre}" required="true"/>
+
+                            <h:outputText value="Correo:" />
+                            <p:inputText value="#{clientesBean.nuevoCliente.correo}" required="true"/>
+
+                            <h:outputText value="Teléfono:" />
+                            <p:inputText value="#{clientesBean.nuevoCliente.telefono}" required="true"/>
+
+                            <h:outputText value="Dirección:" />
+                            <p:inputText value="#{clientesBean.nuevoCliente.direccion}" required="true"/>
+
+                            <h:outputText value="Contraseña:" />
+                            <p:password value="#{clientesBean.nuevoCliente.contrasena}" required="true"/>
+                        </h:panelGrid>
+
+                        <div style="text-align: center; margin-top: 10px;">
+                            <p:commandButton value="Guardar" 
+                                             action="#{clientesBean.agregarCliente}" 
+                                             update=":formClientes,:formAgregar" 
+                                             oncomplete="PF('dlgAgregar').hide()"
+                                             icon="pi pi-check"
+                                             styleClass="ui-button-success"
+                                             style="margin-right: 5px;" />
+
+                            <p:commandButton value="Cancelar" 
+                                             onclick="PF('dlgAgregar').hide()" 
+                                             icon="pi pi-times"
+                                             styleClass="ui-button-secondary" />
+                        </div>
+                    </h:form>
+                </p:dialog>
+            </div>
+
+            <!-- =================== SECCIÓN PEDIDOS =================== -->
+            <div id="seccionPedidos" class="content-section">
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h3 class="mb-0">
+                                    <i class="fas fa-list-alt me-2"></i>
+                                    Gestión de Pedidos
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h:form id="formPedidos">
+                    <p:growl id="messagesPedidos" showDetail="true" life="5000"/>
+
+                    <!-- Botón para nuevo pedido -->
+                    <div class="row mb-3">
+                        <div class="col-md-12 text-end">
+                            <p:commandButton value="Nuevo Pedido" 
+                                             styleClass="btn btn-primary"
+                                             icon="pi pi-plus"
+                                             action="#{gestionPedidosAdminBean.abrirModalNuevo}"
+                                             update=":formNuevoPedido"
+                                             oncomplete="PF('dialogNuevoPedido').show()"/>
+                        </div>
+                    </div>
+
+                    <!-- Sección de Filtros -->
+                    <div class="filter-section mb-4">
+                        <h5><i class="fas fa-filter"></i> Filtros</h5>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="filtroCliente">Cliente:</label>
+                                <p:inputText id="filtroCliente" 
+                                             value="#{gestionPedidosAdminBean.filtroCliente}"
+                                             placeholder="Buscar cliente..."
+                                             styleClass="form-control"/>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="filtroEstado">Estado:</label>
+                                <p:selectOneMenu id="filtroEstado" 
+                                                 value="#{gestionPedidosAdminBean.filtroEstado}"
+                                                 styleClass="form-select">
+                                    <f:selectItem itemValue="" itemLabel="Todos"/>
+                                    <f:selectItem itemValue="Pendiente" itemLabel="Pendiente"/>
+                                    <f:selectItem itemValue="En proceso" itemLabel="En proceso"/>
+                                    <f:selectItem itemValue="Listo para entrega" itemLabel="Listo para entrega"/>
+                                    <f:selectItem itemValue="Entregado" itemLabel="Entregado"/>
+                                    <f:selectItem itemValue="Cancelado" itemLabel="Cancelado"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="fechaDesde">Desde:</label>
+                                <p:calendar id="fechaDesde" 
+                                            value="#{gestionPedidosAdminBean.fechaDesde}"
+                                            pattern="dd/MM/yyyy"
+                                            styleClass="form-control"/>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="fechaHasta">Hasta:</label>
+                                <p:calendar id="fechaHasta" 
+                                            value="#{gestionPedidosAdminBean.fechaHasta}"
+                                            pattern="dd/MM/yyyy"
+                                            styleClass="form-control"/>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end">
+                                <p:commandButton value="Filtrar" 
+                                                 styleClass="btn btn-info me-2"
+                                                 icon="pi pi-search"
+                                                 action="#{gestionPedidosAdminBean.filtrarPedidos}"
+                                                 update="tablaPedidos"/>
+                                <p:commandButton value="Limpiar" 
+                                                 styleClass="btn btn-secondary"
+                                                 icon="pi pi-times"
+                                                 action="#{gestionPedidosAdminBean.limpiarFiltros}"
+                                                 update="formPedidos"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabla de Pedidos -->
+                    <p:dataTable id="tablaPedidos" 
+                                 value="#{gestionPedidosAdminBean.pedidosFiltrados}" 
+                                 var="pedido"
+                                 paginator="true" 
+                                 rows="10"
+                                 styleClass="table table-striped"
+                                 emptyMessage="No se encontraron pedidos"
+                                 rowKey="#{pedido.idPedido}">
+
+                        <p:column headerText="ID" sortBy="#{pedido.idPedido}" style="width: 60px;">
+                            <h:outputText value="#{pedido.idPedido}"/>
+                        </p:column>
+
+                        <p:column headerText="Cliente" sortBy="#{pedido.nombreCliente}">
+                            <h:outputText value="#{pedido.nombreCliente}"/>
+                        </p:column>
+
+                        <p:column headerText="Servicio" sortBy="#{pedido.nombreServicio}">
+                            <h:outputText value="#{pedido.nombreServicio}"/>
+                        </p:column>
+
+                        <p:column headerText="Total" sortBy="#{pedido.total}" style="text-align: right;">
+                            <h:outputText value="S/. #{pedido.total}"/>
+                        </p:column>
+
+                        <p:column headerText="Estado" sortBy="#{pedido.estado}">
+                            <span class="#{gestionPedidosAdminBean.obtenerClaseBadge(pedido.estado)}">
+                                #{pedido.estado}
+                            </span>
+                        </p:column>
+
+                        <p:column headerText="F. Recojo" sortBy="#{pedido.fechaRecojo}">
+                            <h:outputText value="#{pedido.fechaRecojo}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="F. Entrega" sortBy="#{pedido.fechaEntrega}">
+                            <h:outputText value="#{pedido.fechaEntrega}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Acciones" style="width:150px; text-align:center;">
+                            <h:panelGrid columns="2" styleClass="acciones-grid">
+                                <p:commandButton icon="pi pi-eye"
+                                                 styleClass="btn btn-sm btn-info"
+                                                 action="#{gestionPedidosAdminBean.verDetalles(pedido)}"
+                                                 update=":formDetalles"
+                                                 oncomplete="PF('dialogDetalles').show()"
+                                                 title="Ver"/>
+
+                                <p:commandButton icon="pi pi-refresh"
+                                                 styleClass="btn btn-sm btn-success"
+                                                 action="#{gestionPedidosAdminBean.prepararCambioEstado(pedido)}"
+                                                 update=":formCambiarEstado"
+                                                 oncomplete="PF('dialogCambiarEstado').show()"
+                                                 title="Cambiar Estado"/>
+                            </h:panelGrid>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+                <!-- Modal Detalles del Pedido -->
+                <p:dialog header="Detalles del Pedido" widgetVar="dialogDetalles" modal="true" width="700">
+                    <h:form id="formDetalles">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Información del Pedido</h5>
+                                <p><strong>ID:</strong> #{gestionPedidosAdminBean.pedidoSeleccionado.idPedido}</p>
+                                <p><strong>Servicio:</strong> #{gestionPedidosAdminBean.pedidoSeleccionado.nombreServicio}</p>
+                                <p><strong>Cantidad:</strong> #{gestionPedidosAdminBean.pedidoSeleccionado.cantidad}</p>
+                                <p><strong>Total:</strong> S/. #{gestionPedidosAdminBean.pedidoSeleccionado.total}</p>
+                                <p><strong>Estado:</strong> 
+                                    <span class="#{gestionPedidosAdminBean.obtenerClaseBadge(gestionPedidosAdminBean.pedidoSeleccionado.estado)}">
+                                        #{gestionPedidosAdminBean.pedidoSeleccionado.estado}
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Información de Entrega</h5>
+                                <p><strong>Método:</strong> #{gestionPedidosAdminBean.pedidoSeleccionado.metodoEntrega}</p>
+                                <p><strong>Fecha Recojo:</strong> 
+                                    <h:outputText value="#{gestionPedidosAdminBean.pedidoSeleccionado.fechaRecojo}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </p>
+                                <p><strong>Fecha Entrega:</strong> 
+                                    <h:outputText value="#{gestionPedidosAdminBean.pedidoSeleccionado.fechaEntrega}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <p:commandButton value="Cerrar" 
+                                             styleClass="btn btn-secondary"
+                                             onclick="PF('dialogDetalles').hide()"/>
+                        </div>
+                    </h:form>
+                </p:dialog>
+
+                <!-- Modal Cambiar Estado -->
+                <p:dialog header="Cambiar Estado" widgetVar="dialogCambiarEstado" modal="true" width="400">
+                    <h:form id="formCambiarEstado">
+                        <h:panelGrid columns="2">
+                            <h:outputText value="Pedido:"/>
+                            <h:outputText value="#{gestionPedidosAdminBean.pedidoSeleccionado.idPedido}"/>
+
+                            <h:outputText value="Estado actual:"/>
+                            <h:outputText value="#{gestionPedidosAdminBean.pedidoSeleccionado.estado}"/>
+
+                            <h:outputText value="Nuevo estado:"/>
+                            <p:selectOneMenu value="#{gestionPedidosAdminBean.nuevoEstado}">
+                                <f:selectItems value="#{gestionPedidosAdminBean.estadosDisponibles}" 
+                                               var="estado" 
+                                               itemValue="#{estado}" 
+                                               itemLabel="#{estado}"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+
+                        <div class="text-center mt-3">
+                            <p:commandButton value="Actualizar" 
+                                             styleClass="btn btn-primary"
+                                             action="#{gestionPedidosAdminBean.cambiarEstado}"
+                                             update=":formPedidos:tablaPedidos :formPedidos:messagesPedidos"
+                                             oncomplete="PF('dialogCambiarEstado').hide()"/>
+                            <p:commandButton value="Cancelar" 
+                                             styleClass="btn btn-secondary"
+                                             onclick="PF('dialogCambiarEstado').hide()"/>
+                        </div>
+                    </h:form>
+                </p:dialog>
+
+                <!-- Modal Nuevo Pedido -->
+                <p:dialog header="Nuevo Pedido" widgetVar="dialogNuevoPedido" modal="true" width="600">
+                    <h:form id="formNuevoPedido">
+                        <h:panelGrid columns="2">
+                            <h:outputText value="Cliente:"/>
+                            <p:selectOneMenu value="#{gestionPedidosAdminBean.idCliente}">
+                                <f:selectItems value="#{gestionPedidosAdminBean.clientesDisponibles}" 
+                                               var="cliente" 
+                                               itemValue="#{cliente.idUsuario}" 
+                                               itemLabel="#{cliente.nombre}"/>
+                            </p:selectOneMenu>
+
+                            <h:outputText value="Servicio:"/>
+                            <p:selectOneMenu value="#{gestionPedidosAdminBean.idServicio}">
+                                <f:selectItems value="#{gestionPedidosAdminBean.serviciosDisponibles}" 
+                                               var="servicio" 
+                                               itemValue="#{servicio.idServicio}" 
+                                               itemLabel="#{servicio.nombreServicio}"/>
+                            </p:selectOneMenu>
+
+                            <h:outputText value="Cantidad:"/>
+                            <p:inputText value="#{gestionPedidosAdminBean.cantidad}"/>
+
+                            <h:outputText value="Fecha Recojo:"/>
+                            <p:calendar value="#{gestionPedidosAdminBean.fechaRecojo}" pattern="dd/MM/yyyy"/>
+
+                            <h:outputText value="Fecha Entrega:"/>
+                            <p:calendar value="#{gestionPedidosAdminBean.fechaEntrega}" pattern="dd/MM/yyyy"/>
+
+                            <h:outputText value="Método Entrega:"/>
+                            <p:selectOneMenu value="#{gestionPedidosAdminBean.metodoEntrega}">
+                                <f:selectItem itemValue="Recojo en tienda" itemLabel="Recojo en tienda"/>
+                                <f:selectItem itemValue="Delivery" itemLabel="Delivery"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+
+                        <div class="text-center mt-3">
+                            <p:commandButton value="Guardar" 
+                                             styleClass="btn btn-primary"
+                                             action="#{gestionPedidosAdminBean.guardarNuevoPedido}"
+                                             update=":formPedidos:tablaPedidos :formPedidos:messagesPedidos"
+                                             oncomplete="PF('dialogNuevoPedido').hide()"/>
+                            <p:commandButton value="Cancelar" 
+                                             styleClass="btn btn-secondary"
+                                             onclick="PF('dialogNuevoPedido').hide()"/>
+                        </div>
+                    </h:form>
+                </p:dialog>
+            </div>
+        </div>
+
+
+
+    </h:body>
 </html>

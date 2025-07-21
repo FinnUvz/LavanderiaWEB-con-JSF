@@ -12,7 +12,7 @@ public class PostgreSQLConnection {
     private static final String JDBC_DRIVER = "org.postgresql.Driver";
     private static final String URL = "jdbc:postgresql://localhost:5432/NuevaLavanderiaWeb";
     private static final String USER = "postgres";
-    private static final String PASSWORD = "admin";
+    private static final String PASSWORD = "12345";
     
     public static Connection getConnection() throws SQLException, ClassNotFoundException{
         Class.forName(JDBC_DRIVER);

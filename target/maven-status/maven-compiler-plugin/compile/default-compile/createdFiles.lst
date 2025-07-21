@@ -1,5 +1,6 @@
 dto\PedidoDTO.class
 util\PostgreSQLConnection.class
+bean\GestionClientesBean.class
 bean\LoginBean.class
 dto\UsuarioDTO.class
 enums\RolUsuario.class

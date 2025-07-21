@@ -56,6 +56,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             rs.getString("rol")
         );
     }
+    
     @Override
     public boolean registrarUsuario(UsuarioDTO usuario) {
         try (Connection conn = PostgreSQLConnection.getConnection();
