@@ -45,8 +45,8 @@ public class GestionServiciosBean implements Serializable {
         mostrarFormulario = true;
     }
 
-    public void prepararEditarServicio(ServicioDTO ServicioDTO) {
-        servicioSeleccionado = servicioDAO.obtenerServicioPorId(ServicioDTO.getIdServicio());
+    public void prepararEditarServicio(ServicioDTO servicioDTO) {
+        servicioSeleccionado = servicioDAO.obtenerServicioPorId(servicioDTO.getIdServicio());
         mostrarFormulario = true;
     }
 
@@ -117,18 +117,24 @@ public class GestionServiciosBean implements Serializable {
         this.serviciosFiltrados = serviciosFiltrados;
     }
 
-    public ServicioDTO getServicioSeleccionado() {
-        return servicioSeleccionado;
+public ServicioDTO getServicioSeleccionado() {
+    if (servicioSeleccionado == null) {
+        servicioSeleccionado = new ServicioDTO();
     }
+    return servicioSeleccionado;
+}
 
     public void setServicioSeleccionado(ServicioDTO servicioSeleccionado) {
         this.servicioSeleccionado = servicioSeleccionado;
     }
 
-    public ServicioDTO getNuevoServicio() {
-        return nuevoServicio;
+public ServicioDTO getNuevoServicio() {
+    if (nuevoServicio == null) {
+        nuevoServicio = new ServicioDTO();
+        nuevoServicio.setActivo(true);
     }
-
+    return nuevoServicio;
+}
     public void setNuevoServicio(ServicioDTO nuevoServicio) {
         this.nuevoServicio = nuevoServicio;
     }
