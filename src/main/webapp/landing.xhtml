@@ -53,11 +53,27 @@
                 border-radius: 50%;
                 padding: 15px;
             }
+            .logo-circle-container {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border: 2px solid white;
+}
+
+.logo-circle-container img {
+    max-width: 90%;
+    max-height: 90%;
+}
         </style>
     </h:head>
     <h:body>
         <!-- Navbar Responsive Actualizado con Botón Login -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <nav class="navbar navbar-expand-lg sticky-top" style="background: linear-gradient(to right, #F55D5D, #5D5DF5);">
             <div class="container-fluid">
                 <!-- Contacto y redes sociales -->
                 <div class="d-flex align-items-center">
@@ -70,9 +86,9 @@
                         </button>
                         <ul class="dropdown-menu">
                             <!-- INSERTAR ENLACES A REDES SOCIALES AQUÍ -->
-                            <li><a class="dropdown-item" href="#facebook-link">Facebook</a></li>
-                            <li><a class="dropdown-item" href="#instagram-link">Instagram</a></li>
-                            <li><a class="dropdown-item" href="#whatsapp-link">WhatsApp</a></li>
+                            <li><a class="dropdown-item" href="https://www.facebook.com" target="_blank" >Facebook</a></li>
+                            <li><a class="dropdown-item" href="https://www.instagram.com" target="_blank" >Instagram</a></li>
+                            <li><a class="dropdown-item" href="https://w.app/k6evqx" target="_blank" >WhatsApp</a></li>
                         </ul>
                     </div>
                 </div>
@@ -85,9 +101,9 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- INSERTAR ENLACES A REDES SOCIALES AQUÍ -->
-                                <li><a class="dropdown-item" href="#facebook-link">Facebook</a></li>
-                                <li><a class="dropdown-item" href="#instagram-link">Instagram</a></li>
-                                <li><a class="dropdown-item" href="#whatsapp-link">WhatsApp</a></li>
+                             <li><a class="dropdown-item" href="https://www.facebook.com" target="_blank" >Facebook</a></li>
+                            <li><a class="dropdown-item" href="https://www.instagram.com" target="_blank" >Instagram</a></li>
+                            <li><a class="dropdown-item" href="https://w.app/k6evqx" target="_blank" >WhatsApp</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -98,11 +114,12 @@
                         </li>
                     </ul>
                     
-                    <!-- Logo en medio -->
-                    <a class="navbar-brand mx-auto" href="#">
-                        <!-- INSERTAR RUTA DE LA IMAGEN DEL LOGO AQUÍ -->
-                        <img src="#ruta-del-logo" alt="Lavandería Express" height="60" />
-                    </a>
+                        <!-- Logo en medio con contenedor circular (versión con clases CSS) -->
+                        <a class="navbar-brand mx-auto" href="#" style="display: flex; justify-content: center;">
+                            <div class="logo-circle-container">
+                                <img src="resources/static/logo lav.png" alt="Lavandería Express" />
+                            </div>
+                        </a>
                     
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
@@ -146,9 +163,10 @@
                         <p>Sigue estos sencillos pasos para realizar tu pedido en Lavandería Express:</p>
                         <ol>
                             <li>Selecciona el boton nuevo pedido </li>
-                            <li>Especifica el tipo de servicio, cantidades y observaciones </li>
-                            <li>Escoge tu metodo de entrega</li>
-                            <li>Programa la recolección y entrega</li>
+                            <li>Selecciona el tipo de servicio y proporciona la cantidad de ropa por kilos </li>
+                            <li>Agrega observaciones y escoge el metodo de entrega</li>
+                            <li>Programa la fecha y hora</li>
+                            <li>Escoge el metodo de pago</li>
                             <li>selecciona el metodo de pago, da click en el boton Confirmar Pedido y ¡Listo! Nos encargaremos del resto</li>
                         </ol>
                     </div>
@@ -160,39 +178,58 @@
                             <button type="button" data-bs-target="#pedidosCarousel" data-bs-slide-to="1"></button>
                             <button type="button" data-bs-target="#pedidosCarousel" data-bs-slide-to="2"></button>
                             <button type="button" data-bs-target="#pedidosCarousel" data-bs-slide-to="3"></button>
+                            <button type="button" data-bs-target="#pedidosCarousel" data-bs-slide-to="4"></button>
+                            <button type="button" data-bs-target="#pedidosCarousel" data-bs-slide-to="5"></button>
                             <!-- Agrega más indicadores si necesitas más imágenes -->
                         </div>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <!-- INSERTAR IMAGEN DEL PASO 1 AQUÍ -->
-                                <img src="#ruta-imagen-paso1" class="d-block w-100 step-img" alt="Paso 1: Seleccionar servicio" />
+                                <img src="resources/static/paso1.png" class="d-block w-100 step-img" alt="Paso 1: Seleccionar servicio" />
                                 <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
                                     <h5>Paso 1</h5>
-                                    <p>Selecciona el tipo de servicio que necesitas</p>
+                                    <p>Da click en el boton Crear Pedido</p>
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <!-- INSERTAR IMAGEN DEL PASO 2 AQUÍ -->
-                                <img src="#ruta-imagen-paso2" class="d-block w-100 step-img" alt="Paso 2: Especificar prendas" />
+                                <img src="resources/static/paso2.png" class="d-block w-100 step-img" alt="Paso 2: Especificar prendas" />
                                 <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
                                     <h5>Paso 2</h5>
-                                    <p>Especifica las prendas y cantidades</p>
+                                    <p>Selecciona el tipo de servicio y proporciona la cantidad de ropa por kilos</p>
+                                    <p>(Si no sabes cuando pesa lo podemos hacer por ti en tienda)</p>
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <!-- INSERTAR IMAGEN DEL PASO 3 AQUÍ -->
-                                <img src="#ruta-imagen-paso3" class="d-block w-100 step-img" alt="Paso 3: Método de pago" />
+                                <img src="resources/static/paso3.png" class="d-block w-100 step-img" alt="Paso 3: Método de pago" />
                                 <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
                                     <h5>Paso 3</h5>
-                                    <p>Elige tu método de pago preferido</p>
+                                    <p>Agrega observaciones y escoge el metodo de entrega</p>
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <!-- INSERTAR IMAGEN DEL PASO 4 AQUÍ -->
-                                <img src="#ruta-imagen-paso4" class="d-block w-100 step-img" alt="Paso 4: Programar entrega" />
+                                <img src="resources/static/paso4.png" class="d-block w-100 step-img" alt="Paso 4: Programar entrega" />
                                 <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
                                     <h5>Paso 4</h5>
-                                    <p>Programa la recolección o entrega</p>
+                                    <p>Programa la fecha y hora</p>
+                                </div>
+                            </div>
+                              <div class="carousel-item">
+                                <!-- INSERTAR IMAGEN DEL PASO 5 AQUÍ -->
+                                <img src="resources/static/paso5.png" class="d-block w-100 step-img" alt="Paso 5: Programar entrega" />
+                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+                                    <h5>Paso 5</h5>
+                                    <p>Escoge el metodo de pago</p>
+                                </div>
+                            </div>
+                                 <div class="carousel-item">
+                             <!-- INSERTAR IMAGEN DEL PASO 6 AQUÍ -->
+                                <img src="resources/static/paso6.png" class="d-block w-100 step-img" alt="Paso 6: Programar entrega" />
+                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+                                    <h5>Paso 6</h5>
+                                    <p>Has click en el boton confirmar pedido</p>
                                 </div>
                             </div>
                             <!-- Agrega más items del carrusel si necesitas más imágenes -->
@@ -217,11 +254,14 @@
             <div class="row">
                 <div class="col-md-6">
                     <!-- INSERTAR DESCRIPCIÓN DEL NEGOCIO AQUÍ -->
-                    <p>Descripción detallada de tu lavandería, historia, misión, visión y valores.</p>
+                    <p>QuickWashy AQP nació como un emprendimiento familiar con el objetivo de ofrecer un servicio de lavandería diferente en Arequipa: moderno, puntual y accesible. Comenzamos con una pequeña tienda en el cercado de Arequipa, y gracias a la confianza de nuestros clientes, tenemos planificado ofrecer nuestra cobertura a zonas como Cayma, Cerro Colorado, Sachaca, Miraflores y Umacollo.
+Nuestra misión es facilitar tu día a día cuidando de tu ropa como si fuera nuestra. Cada prenda que recibimos pasa por un riguroso proceso de revisión, clasificación, lavado y acabado para garantizarte la mejor calidad.Nuestra visión es ser una empresa líder y reconocida en el rubro de lavandería por la calidad de nuestro servicio, la confianza que generamos y la innovación constante que aplicamos en cada proceso. Queremos simplificar la vida de las personas, ayudándoles a ahorrar tiempo y preocupaciones, ofreciendo una experiencia de lavandería moderna, eficiente y con un trato humano excepcional.
+
+Aspiramos a crecer junto a nuestros clientes, siendo un aliado en su día a día, comprometidos con la excelencia, la puntualidad y el respeto por cada prenda. Además, promovemos prácticas responsables con el medio ambiente, haciendo un uso consciente del agua, la energía y los insumos.Nos enfocamos no solo en limpiar tu ropa, sino en conservar su calidad, color y textura, extendiendo su vida útil. Nuestro objetivo es que cada cliente se sienta satisfecho al recibir sus prendas impecables y listas para usar</p>
                 </div>
                 <div class="col-md-6">
                     <!-- INSERTAR IMÁGENES REFERENCIALES AQUÍ -->
-                    <img src="#ruta-imagen-referencial" class="img-fluid rounded" alt="Lavandería Express" />
+                    <img src="resources/static/referencia1.png" class="img-fluid rounded" alt="Lavandería Express" />
                 </div>
             </div>
         </section>
@@ -233,44 +273,44 @@
                 <div class="col-md-3">
                     <div class="card service-card">
                         <!-- INSERTAR IMAGEN DE LAVADO AQUÍ -->
-                        <img src="#ruta-imagen-lavado" class="card-img-top" alt="Lavado" />
+                        <img src="resources/static/lavado.jpg" class="card-img-top" alt="Lavado" />
                         <div class="card-body">
                             <h5 class="card-title">Lavado</h5>
                             <!-- INSERTAR DESCRIPCIÓN DE LAVADO AQUÍ -->
-                            <p class="card-text">Descripción del servicio de lavado.</p>
+                            <p class="card-text">Cuidamos tus prendas con lavados especializados según el tipo de tela y nivel de suciedad, utilizando productos de calidad que garantizan limpieza profunda y preservación del color.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card service-card">
                         <!-- INSERTAR IMAGEN DE SECADO AQUÍ -->
-                        <img src="#ruta-imagen-secado" class="card-img-top" alt="Secado" />
+                        <img src="resources/static/secado.jpg" class="card-img-top" alt="Secado" />
                         <div class="card-body">
                             <h5 class="card-title">Secado</h5>
                             <!-- INSERTAR DESCRIPCIÓN DE SECADO AQUÍ -->
-                            <p class="card-text">Descripción del servicio de secado.</p>
+                            <p class="card-text">Secamos tu ropa de forma rápida y segura con tecnología que evita el encogimiento, mantiene la suavidad y la deja lista para usar o planchar.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card service-card">
                         <!-- INSERTAR IMAGEN DE TINTADO AQUÍ -->
-                        <img src="#ruta-imagen-tintado" class="card-img-top" alt="Tintado" />
+                        <img src="resources/static/tintado.jpg" class="card-img-top" alt="Tintado" />
                         <div class="card-body">
                             <h5 class="card-title">Tintado</h5>
                             <!-- INSERTAR DESCRIPCIÓN DE TINTADO AQUÍ -->
-                            <p class="card-text">Descripción del servicio de tintado.</p>
+                            <p class="card-text">Renueva el color de tus prendas con nuestro servicio de tintado. Ideal para ropa descolorida o si deseas cambiar de estilo. Aplicamos tintes duraderos y seguros para tus telas.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card service-card">
                         <!-- INSERTAR IMAGEN DE PLANCHADO AQUÍ -->
-                        <img src="#ruta-imagen-planchado" class="card-img-top" alt="Planchado" />
+                        <img src="resources/static/planchado.jpg" class="card-img-top" alt="Planchado" />
                         <div class="card-body">
                             <h5 class="card-title">Planchado</h5>
                             <!-- INSERTAR DESCRIPCIÓN DE PLANCHADO AQUÍ -->
-                            <p class="card-text">Descripción del servicio de planchado.</p>
+                            <p class="card-text">Deja tus prendas impecables con nuestro servicio de planchado. Tratamos cada tela con cuidado y precisión, eliminando arrugas sin dañar las fibras, para que luzcas siempre prolijo y presentable.</p>
                         </div>
                     </div>
                 </div>
@@ -283,14 +323,14 @@
             <div class="row justify-content-center">
                 <div class="col-md-4 text-center">
                     <!-- INSERTAR IMAGEN DEL DUEÑO AQUÍ -->
-                    <img src="#ruta-imagen-dueno" class="team-img" alt="Dueño" />
-                    <h4 class="mt-3">Nombre del Dueño</h4>
+                    <img src="resources/static/dueno.jpg" class="team-img" alt="Dueño" />
+                    <h4 class="mt-3">Markus Zeballos </h4>
                     <p>Dueño y Fundador</p>
                 </div>
                 <div class="col-md-4 text-center">
                     <!-- INSERTAR IMAGEN DE PERSONAL AQUÍ -->
-                    <img src="#ruta-imagen-personal" class="team-img" alt="Personal" />
-                    <h4 class="mt-3">Nombre del Personal</h4>
+                    <img src="resources/static/empleado.jpg" class="team-img" alt="Personal" />
+                    <h4 class="mt-3">Esmeralda Ramirez</h4>
                     <p>Cargo del Personal</p>
                 </div>
             </div>
@@ -302,7 +342,7 @@
             <div class="row">
                 <div class="col-md-4 text-center">
                     <!-- INSERTAR IMAGEN DE PROMO 1 AQUÍ -->
-                    <img src = "resources/static/POSTMAIN.png" class="img-fluid promo-img" alt="Promoción 1" />
+                    <img src = "resources/static/POSTLaundry.png" class="img-fluid promo-img" alt="Promoción 1" />
                 </div>
                 <div class="col-md-4 text-center">
                     <!-- INSERTAR IMAGEN DE PROMO 2 AQUÍ -->
@@ -322,36 +362,36 @@
                 <div class="col-md-3">
                     <div class="card product-card">
                         <!-- INSERTAR IMAGEN DE PRODUCTO 1 AQUÍ -->
-                        <img src="#ruta-imagen-producto1" class="card-img-top" alt="Producto 1" />
+                        <img src="resources/static/downy.jpg" class="card-img-top" alt="Producto 1" />
                         <div class="card-body">
-                            <h5 class="card-title">Producto 1</h5>
+                            <h5 class="card-title">Detergente líquido</h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card product-card">
                         <!-- INSERTAR IMAGEN DE PRODUCTO 2 AQUÍ -->
-                        <img src="#ruta-imagen-producto2" class="card-img-top" alt="Producto 2" />
+                        <img src="resources/static/suavitel.jpg" class="card-img-top" alt="Producto 2" />
                         <div class="card-body">
-                            <h5 class="card-title">Producto 2</h5>
+                            <h5 class="card-title">Suavizante de telas</h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card product-card">
                         <!-- INSERTAR IMAGEN DE PRODUCTO 3 AQUÍ -->
-                        <img src="#ruta-imagen-producto3" class="card-img-top" alt="Producto 3" />
+                        <img src="resources/static/bolsas.png" class="card-img-top" alt="Producto 3" />
                         <div class="card-body">
-                            <h5 class="card-title">Producto 3</h5>
+                            <h5 class="card-title">Bolsas para ropa sucia o entregas</h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card product-card">
                         <!-- INSERTAR IMAGEN DE PRODUCTO 4 AQUÍ -->
-                        <img src="#ruta-imagen-producto4" class="card-img-top" alt="Producto 4" />
+                        <img src="resources/static/kiara.jpg" class="card-img-top" alt="Producto 4" />
                         <div class="card-body">
-                            <h5 class="card-title">Producto 4</h5>
+                            <h5 class="card-title">Removedores de manchas</h5>
                         </div>
                     </div>
                 </div>
@@ -364,20 +404,20 @@
                 <div class="row">
                     <div class="col-md-4">
                         <h5>Contacto</h5>
-                        <p>Dirección: [INSERTAR DIRECCIÓN]</p>
-                        <p>Teléfono: [INSERTAR TELÉFONO]</p>
+                        <p>Dirección: SEDE AREQUIPA: AV. GOYONECHE 100 (REFERENCIA: A UNA CUADRA DEL HOSPITAL GOYONECHE)</p>
+                        <p>Teléfono: 979674386</p>
                     </div>
                     <div class="col-md-4">
                         <h5>Horario</h5>
-                        <p>Lunes a Viernes: [INSERTAR HORARIO]</p>
-                        <p>Sábados: [INSERTAR HORARIO]</p>
+                        <p>Lunes a Viernes: 10:00 AM - 22:00 PM</p>
+                        <p>Sábados: 10:00 AM - 18::00 PM</p>
                     </div>
                     <div class="col-md-4">
                         <h5>Síguenos</h5>
                         <!-- INSERTAR ENLACES A REDES SOCIALES AQUÍ -->
-                        <a href="#facebook-link" class="text-white me-2">Facebook</a>
-                        <a href="#instagram-link" class="text-white me-2">Instagram</a>
-                        <a href="#whatsapp-link" class="text-white">WhatsApp</a>
+                        <a href="https://www.facebook.com" target="_blank" class="text-white me-2">Facebook</a>
+                        <a href="https://www.instagram.com" target="_blank" class="text-white me-2">Instagram</a>
+                        <a href="https://w.app/k6evqx" target="_blank" class="text-white">WhatsApp</a>
                     </div>
                 </div>
             </div>
